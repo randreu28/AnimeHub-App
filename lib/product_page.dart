@@ -7,17 +7,18 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const space = SizedBox(height: 20);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: const Text("Product page"),
         backgroundColor: Theme.of(context).primaryColorDark,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Container(
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Container(
               padding: const EdgeInsets.only(bottom: 15),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorDark,
@@ -31,40 +32,52 @@ class ProductPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).highlightColor,
-              borderRadius: BorderRadius.circular(5),
+            space,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              decoration: BoxDecoration(
+                color: Theme.of(context).highlightColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: const Text(
+                "New",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            child: const Text(
-              "New",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(30.0),
-            child: Text(
-              "Big double cheeseburger",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 0),
-            child: Text(
+            space,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Text(
+                "Big double cheeseburger",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
-                "Marble beef, cheddar cheese, jalapeño pepper, pickled cucumber, lettuce, red onion, BBQ sauce"),
-          ),
-        ],
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            space,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 0),
+              child: Text(
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey),
+                  "Marble beef, cheddar cheese, jalapeño pepper, pickled cucumber, lettuce, red onion, BBQ sauce"),
+            ),
+            space,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text("8.50 \$"),
+                SizedBox(width: 20),
+                Text("320 g"),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
