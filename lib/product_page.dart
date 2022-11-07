@@ -70,12 +70,50 @@ class ProductPage extends StatelessWidget {
             space,
             Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text("8.50 \$"),
-                SizedBox(width: 20),
-                Text("320 g"),
+              children: [
+                Row(
+                  children: const [
+                    Icon(Icons.label_important_outline), //Not the same icon...
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("8.50 \$"),
+                  ],
+                ),
+                const SizedBox(width: 20),
+                Row(
+                  children: const [
+                    Icon(Icons.monitor_weight_outlined), //Not the same icon...
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("320 \g"),
+                  ],
+                ),
               ],
-            )
+            ),
+            space,
+            space,
+            ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      Theme.of(context).highlightColor),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                  child: Text(
+                    "Taste it for 8.50\$",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ))
           ],
         ),
       ),
