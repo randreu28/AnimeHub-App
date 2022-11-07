@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({
-    Key? key,
-  }) : super(key: key);
+  final String productName;
+  final bool isNew;
+  final String description;
+  final double price;
+  final double weight;
+  final String image;
+  final void Function()? onPressed;
+  const ProductPage(
+      {Key? key,
+      required this.productName,
+      required this.isNew,
+      required this.description,
+      required this.price,
+      required this.weight,
+      required this.image,
+      required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +25,7 @@ class ProductPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: const Text("Product page"),
+        title: Text(productName),
         backgroundColor: Theme.of(context).primaryColorDark,
       ),
       body: Padding(
@@ -26,68 +40,71 @@ class ProductPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: SizedBox.fromSize(
-                  child: Image.network(
-                      'https://media.istockphoto.com/photos/beef-cheeseburger-on-black-plate-with-flames-in-background-picture-id1371431471?b=1&k=20&m=1371431471&s=170667a&w=0&h=I53raoVmACQjW7AGLHjgvAqKlOeM8OouCa4K2iloxC0=',
-                      fit: BoxFit.cover),
+                  child: Image.network(image, fit: BoxFit.cover),
                 ),
               ),
             ),
             space,
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              decoration: BoxDecoration(
-                color: Theme.of(context).highlightColor,
-                borderRadius: BorderRadius.circular(5),
+            if (isNew == true)
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).highlightColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: const Text(
+                  "New",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-              child: const Text(
-                "New",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
             space,
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Text(
-                "Big double cheeseburger",
+                productName,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
             ),
             space,
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 0),
               child: Text(
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey),
-                  "Marble beef, cheddar cheese, jalapeño pepper, pickled cucumber, lettuce, red onion, BBQ sauce"),
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.grey),
+              ),
             ),
             space,
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
-                  children: const [
-                    Icon(Icons.label_important_outline), //Not the same icon...
-                    SizedBox(
+                  children: [
+                    const Icon(
+                        Icons.label_important_outline), //Not the same icon...
+                    const SizedBox(
                       width: 5,
                     ),
-                    Text("8.50 \$"),
+                    Text("$price \$"),
                   ],
                 ),
                 const SizedBox(width: 20),
                 Row(
-                  children: const [
-                    Icon(Icons.monitor_weight_outlined), //Not the same icon...
-                    SizedBox(
+                  children: [
+                    const Icon(
+                        Icons.monitor_weight_outlined), //Not the same icon...
+                    const SizedBox(
                       width: 5,
                     ),
-                    Text("320 \g"),
+                    Text("$weight g"),
                   ],
                 ),
               ],
@@ -95,7 +112,7 @@ class ProductPage extends StatelessWidget {
             space,
             space,
             ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressed,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       Theme.of(context).highlightColor),
@@ -105,11 +122,12 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
                   child: Text(
-                    "Taste it for 8.50\$",
-                    style: TextStyle(
+                    "Taste it for $price\$",
+                    style: const TextStyle(
                       fontSize: 18,
                     ),
                   ),
