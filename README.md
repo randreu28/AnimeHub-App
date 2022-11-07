@@ -1,6 +1,6 @@
-# p1
+# CITM-BETMAVII
 
-A new Flutter project.
+A Flutter project made as a university assignement.
 
 ## Getting Started
 
