@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p1/models/product.dart';
 import 'package:provider/provider.dart';
+import 'package:p1/widgets/feature.dart';
 
 class ProductPage extends StatelessWidget {
   final Product product;
@@ -75,27 +76,11 @@ class ProductPage extends StatelessWidget {
               space,
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                          Icons.label_important_outline), //Not the same icon...
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text("${product.price} \$"),
-                    ],
-                  ),
-                  const SizedBox(width: 20),
-                  Row(
-                    children: [
-                      const Icon(
-                          Icons.monitor_weight_outlined), //Not the same icon...
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text("${product.weight} g"),
-                    ],
+                children: const [
+                  Feature(type: "price"),
+                  SizedBox(width: 20),
+                  Feature(
+                    type: "weight",
                   ),
                 ],
               ),
