@@ -1,23 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:p1/models/product.dart';
 
 class ProductPage extends StatelessWidget {
-  final String productName;
-  final bool isNew;
-  final String description;
-  final double price;
-  final double weight;
-  final String image;
-  final void Function()? onPressed;
-  const ProductPage(
-      {Key? key,
-      required this.productName,
-      required this.isNew,
-      required this.description,
-      required this.price,
-      required this.weight,
-      required this.image,
-      required this.onPressed})
-      : super(key: key);
+  final Product product;
+  const ProductPage({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +11,7 @@ class ProductPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text(productName),
+        title: Text(product.name),
         backgroundColor: Theme.of(context).primaryColorDark,
       ),
       body: Padding(
@@ -40,12 +26,12 @@ class ProductPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: SizedBox.fromSize(
-                  child: Image.network(image, fit: BoxFit.cover),
+                  child: Image.network(product.image, fit: BoxFit.cover),
                 ),
               ),
             ),
             space,
-            if (isNew == true)
+            if (product.isNew == true)
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -65,7 +51,7 @@ class ProductPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Text(
-                productName,
+                product.name,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     color: Colors.white,
@@ -77,7 +63,7 @@ class ProductPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 0),
               child: Text(
-                description,
+                product.description,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.grey),
               ),
@@ -93,7 +79,7 @@ class ProductPage extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    Text("$price \$"),
+                    Text("${product.price} \$"),
                   ],
                 ),
                 const SizedBox(width: 20),
@@ -104,7 +90,7 @@ class ProductPage extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    Text("$weight g"),
+                    Text("${product.weight} g"),
                   ],
                 ),
               ],
@@ -112,7 +98,7 @@ class ProductPage extends StatelessWidget {
             space,
             space,
             ElevatedButton(
-                onPressed: onPressed,
+                onPressed: product.onPressed,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       Theme.of(context).highlightColor),
@@ -126,7 +112,7 @@ class ProductPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 60),
                   child: Text(
-                    "Taste it for $price\$",
+                    "Taste it for ${product.price}\$",
                     style: const TextStyle(
                       fontSize: 18,
                     ),
