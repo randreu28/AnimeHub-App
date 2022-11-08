@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:p1/product_page.dart';
+import 'package:p1/pages/product_page.dart';
 
-import 'models/product.dart';
+import '../models/product.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({
@@ -15,7 +15,6 @@ class MainScreen extends StatelessWidget {
         child: ElevatedButton(
           child: const Text("Go to Second Screen"),
           onPressed: () {
-            // 1. Saltem a la pantalla SecondScreen i la posem a sobre
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => ProductPage(
