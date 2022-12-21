@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:p1_coronado/screens/discover_screen.dart';
 import 'package:p1_coronado/screens/profile_screen.dart';
+import 'package:p1_coronado/widgets/auth_gate.dart';
 
 import 'firebase_options.dart';
 
@@ -10,7 +11,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+
+  runApp(const AuthGate(
+    app: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
