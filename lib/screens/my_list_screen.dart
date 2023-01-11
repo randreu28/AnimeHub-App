@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:p1_coronado/models/anime.dart';
 
 class MyListScreen extends StatefulWidget {
   const MyListScreen({super.key});
@@ -9,8 +9,26 @@ class MyListScreen extends StatefulWidget {
 }
 
 class _MyListScreenState extends State<MyListScreen> {
+  Anime? anime;
+
+  @override
+  void initState() {
+    loadAnime(1).then((newAnime) {
+      setState(() {
+        anime = newAnime;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (anime == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -19,9 +37,7 @@ class _MyListScreenState extends State<MyListScreen> {
           ),
           Row(
             children: [
-              Image.network(
-                  "https://cdn.myanimelist.net/images/anime/1471/128323.jpg",
-                  height: 250),
+              Image.network(anime!.image, height: 250),
             ],
           ),
         ],
