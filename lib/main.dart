@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:p1_coronado/screens/discover_screen.dart';
+import 'package:p1_coronado/screens/my_list_screen.dart';
 import 'package:p1_coronado/screens/profile_screen.dart';
 import 'package:p1_coronado/widgets/auth_gate.dart';
 
@@ -41,7 +42,7 @@ class _NavBarState extends State<NavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     ProfileScreen(),
     DiscoverScreen(),
-    ProfileScreen(),
+    MyListScreen(),
   ];
 
   void _onItemTapped(int index) {
