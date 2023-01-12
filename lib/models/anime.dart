@@ -10,6 +10,7 @@ enum AnimeStatus {
 }
 
 class Anime {
+  int id;
   String image;
   String title;
   double score;
@@ -25,6 +26,7 @@ class Anime {
   AnimeStatus status;
 
   Anime({
+    required this.id,
     required this.title,
     required this.image,
     required this.score,
@@ -80,6 +82,7 @@ Future<Anime> loadAnime(int animeID) async {
   }
 
   return Anime(
+    id: animeID,
     title: data["titles"][0]["title"],
     image: data["images"]["jpg"]["image_url"],
     score: data["score"],
