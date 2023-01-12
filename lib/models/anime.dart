@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum AnimeStatus {
   completed,
@@ -46,6 +47,38 @@ Future<Anime> loadAnime(int animeID) async {
   final json = jsonDecode(response.body);
   final data = json["data"];
 
+  final db = FirebaseFirestore.instance;
+
+  Future<bool> loadIsFavorite() async {
+    final docRef = db.collection("animes").doc(animeID.toString());
+
+    return await docRef.get().then((DocumentSnapshot doc) {
+      if (doc.exists == false) return false;
+      final data = doc.data() as Map<String, dynamic>;
+      return data["isFavorite"];
+    });
+  }
+
+  Future<AnimeStatus> loadStatus() async {
+    final docRef = db.collection("animes").doc(animeID.toString());
+
+    return await docRef.get().then((DocumentSnapshot doc) {
+      if (doc.exists == false) return AnimeStatus.notWatched;
+
+      final data = doc.data() as Map<String, dynamic>;
+      switch (data["status"]) {
+        case "completed":
+          return AnimeStatus.completed;
+        case "watching":
+          return AnimeStatus.watching;
+        case "notWatched":
+          return AnimeStatus.notWatched;
+        default:
+          return AnimeStatus.notWatched;
+      }
+    });
+  }
+
   return Anime(
     title: data["titles"][0]["title"],
     image: data["images"]["jpg"]["image_url"],
@@ -56,9 +89,10 @@ Future<Anime> loadAnime(int animeID) async {
     favorites: data["favorites"],
     airingStatus: data["status"],
     synopsis: data["synopsis"],
-    genres: /* TODO */ List.filled(5, "test"),
+    genres: List.generate(
+        data["genres"].length, (genre) => data["genres"][genre]["name"]),
     episodes: data["episodes"],
-    isFavorite: true /* TODO */,
-    status: AnimeStatus.completed,
+    isFavorite: await loadIsFavorite(),
+    status: await loadStatus(),
   );
 }
