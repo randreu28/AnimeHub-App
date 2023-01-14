@@ -25,6 +25,30 @@ class Anime {
   bool isFavorite;
   AnimeStatus status;
 
+  void setStatus(AnimeStatus newAnimeStatus) {
+    final db = FirebaseFirestore.instance;
+    final docRef = db.collection("animes").doc(id.toString());
+
+    docRef.set(<String, dynamic>{
+      "isFavorite": isFavorite,
+      "status": newAnimeStatus.toString(),
+    }).catchError((error) => {print(error.toString())});
+
+    status = newAnimeStatus;
+  }
+
+  void setIsFavorite(bool newIsFavorite) {
+    final db = FirebaseFirestore.instance;
+    final docRef = db.collection("animes").doc(id.toString());
+
+    docRef.set(<String, dynamic>{
+      "isFavorite": newIsFavorite,
+      "status": status,
+    }).catchError((error) => {print(error.toString())});
+
+    isFavorite = newIsFavorite;
+  }
+
   Anime({
     required this.id,
     required this.title,
