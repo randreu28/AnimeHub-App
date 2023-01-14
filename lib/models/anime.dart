@@ -13,7 +13,7 @@ class Anime {
   int id;
   String image;
   String title;
-  double score;
+  double? score;
   int rank;
   int popularity;
   int members;
@@ -136,4 +136,13 @@ Future<List<Anime>> loadTopAnimes() async {
     topAnimes.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
   }
   return topAnimes;
+}
+
+Future<Anime> loadRandomAnime() async {
+  final url = Uri.parse("https://api.jikan.moe/v4/random/anime");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  return parseJsonToAnime(data, data["mal_id"]);
 }
