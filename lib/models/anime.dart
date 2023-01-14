@@ -67,38 +67,35 @@ class Anime {
   });
 }
 
-Future<Anime> loadAnime(int animeID) async {
-  final url = Uri.parse("https://api.jikan.moe/v4/anime/$animeID");
-  final response = await http.get(url);
-  final json = jsonDecode(response.body);
-  final data = json["data"];
-
+Future<bool> loadIsFavorite(int animeID) async {
   final db = FirebaseFirestore.instance;
 
-  Future<bool> loadIsFavorite() async {
-    final docRef = await db.collection("animes").doc(animeID.toString()).get();
+  final docRef = await db.collection("animes").doc(animeID.toString()).get();
 
-    if (docRef.exists) {
-      final data = docRef.data() as Map<String, dynamic>;
-      return data["isFavorite"];
-    }
-    return false;
+  if (docRef.exists) {
+    final data = docRef.data() as Map<String, dynamic>;
+    return data["isFavorite"];
   }
+  return false;
+}
 
-  Future<AnimeStatus> loadStatus() async {
-    final docRef = await db.collection("animes").doc(animeID.toString()).get();
+Future<AnimeStatus> loadStatus(int animeID) async {
+  final db = FirebaseFirestore.instance;
 
-    if (docRef.exists) {
-      final data = docRef.data() as Map<String, dynamic>;
+  final docRef = await db.collection("animes").doc(animeID.toString()).get();
 
-      AnimeStatus status = AnimeStatus.values //Converts string to enum
-          .firstWhere((e) => e.toString() == data["status"]);
+  if (docRef.exists) {
+    final data = docRef.data() as Map<String, dynamic>;
 
-      return status;
-    }
-    return AnimeStatus.notWatched;
+    AnimeStatus status = AnimeStatus.values //Converts string to enum
+        .firstWhere((e) => e.toString() == data["status"]);
+
+    return status;
   }
+  return AnimeStatus.notWatched;
+}
 
+Future<Anime> parseJsonToAnime(dynamic data, int animeID) async {
   return Anime(
     id: animeID,
     title: data["titles"][0]["title"],
@@ -113,7 +110,16 @@ Future<Anime> loadAnime(int animeID) async {
     genres: List.generate(
         data["genres"].length, (genre) => data["genres"][genre]["name"]),
     episodes: data["episodes"],
-    isFavorite: await loadIsFavorite(),
-    status: await loadStatus(),
+    isFavorite: await loadIsFavorite(animeID),
+    status: await loadStatus(animeID),
   );
+}
+
+Future<Anime> loadAnime(int animeID) async {
+  final url = Uri.parse("https://api.jikan.moe/v4/anime/$animeID");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  return parseJsonToAnime(data, animeID);
 }
