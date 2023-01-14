@@ -146,3 +146,17 @@ Future<Anime> loadRandomAnime() async {
 
   return parseJsonToAnime(data, data["mal_id"]);
 }
+
+Future<List<Anime>> loadUpcomingSeasons() async {
+  final url = Uri.parse("https://api.jikan.moe/v4/seasons/upcoming");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  List<Anime> upcomingSeasons = [];
+
+  for (final animeData in data) {
+    upcomingSeasons.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
+  }
+  return upcomingSeasons;
+}
