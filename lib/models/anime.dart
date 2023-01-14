@@ -123,3 +123,17 @@ Future<Anime> loadAnime(int animeID) async {
 
   return parseJsonToAnime(data, animeID);
 }
+
+Future<List<Anime>> loadTopAnimes() async {
+  final url = Uri.parse("https://api.jikan.moe/v4/top/anime");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  List<Anime> topAnimes = [];
+
+  for (final animeData in data) {
+    topAnimes.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
+  }
+  return topAnimes;
+}
