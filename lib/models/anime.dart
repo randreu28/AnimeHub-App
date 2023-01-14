@@ -52,33 +52,27 @@ Future<Anime> loadAnime(int animeID) async {
   final db = FirebaseFirestore.instance;
 
   Future<bool> loadIsFavorite() async {
-    final docRef = db.collection("animes").doc(animeID.toString());
+    final docRef = await db.collection("animes").doc(animeID.toString()).get();
 
-    return await docRef.get().then((DocumentSnapshot doc) {
-      if (doc.exists == false) return false;
-      final data = doc.data() as Map<String, dynamic>;
+    if (docRef.exists) {
+      final data = docRef.data() as Map<String, dynamic>;
       return data["isFavorite"];
-    });
+    }
+    return false;
   }
 
   Future<AnimeStatus> loadStatus() async {
-    final docRef = db.collection("animes").doc(animeID.toString());
+    final docRef = await db.collection("animes").doc(animeID.toString()).get();
 
-    return await docRef.get().then((DocumentSnapshot doc) {
-      if (doc.exists == false) return AnimeStatus.notWatched;
+    if (docRef.exists) {
+      final data = docRef.data() as Map<String, dynamic>;
 
-      final data = doc.data() as Map<String, dynamic>;
-      switch (data["status"]) {
-        case "completed":
-          return AnimeStatus.completed;
-        case "watching":
-          return AnimeStatus.watching;
-        case "notWatched":
-          return AnimeStatus.notWatched;
-        default:
-          return AnimeStatus.notWatched;
-      }
-    });
+      AnimeStatus status = AnimeStatus.values //Converts string to enum
+          .firstWhere((e) => e.toString() == data["status"]);
+
+      return status;
+    }
+    return AnimeStatus.notWatched;
   }
 
   return Anime(
