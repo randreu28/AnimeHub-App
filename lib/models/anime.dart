@@ -10,18 +10,18 @@ enum AnimeStatus {
 }
 
 class Anime {
-  int id;
-  String image;
-  String title;
+  int? id;
+  String? image;
+  String? title;
   double? score;
-  int rank;
-  int popularity;
-  int members;
-  int favorites;
-  String airingStatus;
-  String synopsis;
-  List<String> genres;
-  int episodes;
+  int? rank;
+  int? popularity;
+  int? members;
+  int? favorites;
+  String? airingStatus;
+  String? synopsis;
+  List<String>? genres;
+  int? episodes;
   bool isFavorite;
   AnimeStatus status;
 
