@@ -14,15 +14,23 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   String query = "";
   List<Anime>? topAnimes;
   List<Anime>? upcomingSeasons;
+  List<Anime>? recommended;
 
   onInit() async {
     final newTopAnimes = await loadTopAnimes();
     final newUpcomingSeasons = await loadUpcomingSeasons();
+    final newRandomWatchingAnime = await loadRandomWatchingAnime();
+    List<Anime> newRecommendations = [];
+
+    if (newRandomWatchingAnime != 0) {
+      newRecommendations = await loadRecommendations(newRandomWatchingAnime);
+    }
 
     if (mounted) {
       setState(() {
         topAnimes = newTopAnimes;
         upcomingSeasons = newUpcomingSeasons;
+        recommended = newRecommendations;
       });
     }
   }
@@ -71,6 +79,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           padding: const EdgeInsets.only(left: 20.0),
           child: Column(
             children: [
+              Carousel(title: "Recommended for you", animes: recommended),
               Carousel(title: "Top Animes", animes: topAnimes),
               Carousel(title: "Upcoming Seasons", animes: upcomingSeasons),
             ],

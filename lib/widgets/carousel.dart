@@ -25,6 +25,31 @@ class Carousel extends StatelessWidget {
       );
     }
 
+    if (animes!.isEmpty) {
+      return Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontSize: 16)),
+            ],
+          ),
+          const SizedBox(
+            height: 200.0,
+            width: 300,
+            child: Center(
+              child: Text(
+                "You haven't watched any anime! Watch some and we'll be able to recommend you new ones",
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ),
+          )
+        ],
+      );
+    }
+
     return Column(
       children: [
         Row(
