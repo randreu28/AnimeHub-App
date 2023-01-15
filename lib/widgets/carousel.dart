@@ -2,26 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 
-class Carousel extends StatefulWidget {
+class Carousel extends StatelessWidget {
   final String title;
   final List<Anime>? animes;
 
   const Carousel({super.key, required this.title, required this.animes});
 
   @override
-  State<Carousel> createState() => _CarouselState();
-}
-
-class _CarouselState extends State<Carousel> {
-  @override
   Widget build(BuildContext context) {
-    if (widget.animes == null) {
+    if (animes == null) {
       return Column(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.title, style: const TextStyle(fontSize: 16)),
+              Text(title, style: const TextStyle(fontSize: 16)),
             ],
           ),
           const SizedBox(
@@ -35,7 +30,7 @@ class _CarouselState extends State<Carousel> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.title, style: const TextStyle(fontSize: 16)),
+            Text(title, style: const TextStyle(fontSize: 16)),
           ],
         ),
         Container(
@@ -44,7 +39,7 @@ class _CarouselState extends State<Carousel> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
-              final anime = widget.animes![index];
+              final anime = animes![index];
               return GestureDetector(
                 onTap: () {
                   /* TODO: Show specific anime screen */
