@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:p1_coronado/models/anime.dart';
+import 'package:p1_coronado/widgets/carousel.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -9,6 +11,17 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   String query = "";
+  List<Anime>? topAnimes;
+
+  @override
+  void initState() {
+    loadTopAnimes().then((animes) => {
+          setState(() {
+            topAnimes = animes;
+          })
+        });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +57,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
               )),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Carousel(title: "Top Animes", animes: topAnimes),
+        )
       ],
     );
   }
