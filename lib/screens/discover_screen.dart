@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p1_coronado/models/anime.dart';
+import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/carousel.dart';
 
 class DiscoverScreen extends StatefulWidget {
