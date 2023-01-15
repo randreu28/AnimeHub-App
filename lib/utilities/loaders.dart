@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:p1_coronado/models/anime.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:p1_coronado/models/user.dart';
 
 Future<List<Anime>> loadRecommendations(int animeID) async {
   final url =
@@ -170,4 +171,31 @@ Future<int> loadRandomWatchingAnime() async {
   }
 
   return int.parse(watchingAnimes.docs[randomDoc].id);
+}
+
+Future<User> loadUser(String username) async {
+  final url = Uri.parse("https://api.jikan.moe/v4/users/$username");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  Gender? newGender;
+
+  if (data["gender"] == null) {
+    newGender = data["gender"];
+  } else {
+    newGender = Gender.values //Converts string to enum
+        .firstWhere((e) => e.toString() == 'Gender.${data["gender"]}');
+  }
+
+  return User(
+      id: data["mal_id"],
+      username: data["username"],
+      image: data["images"]["jpg"]["image_url"],
+      lastOnline: DateTime.parse(data["last_online"]),
+      gender: newGender,
+      birthday:
+          data["birthday"] != null ? DateTime.parse(data["birthday"]) : null,
+      location: data["location"],
+      joined: DateTime.parse(data["joined"]));
 }
