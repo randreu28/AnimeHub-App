@@ -159,16 +159,16 @@ Future<int> loadRandomWatchingAnime() async {
 
   final watchingAnimes = await db
       .collection("animes")
-      .where("status", isEqualTo: "AnimeStatus.watching")
+      .where("status", isEqualTo: "AnimeStatus.watched")
       .get();
 
   final length = watchingAnimes.size;
-  final randomDoc = Random().nextInt(watchingAnimes.size);
 
   if (length == 0) {
     return 0;
     //If there isn't any anime being watched, return 0 to inform front-end
   }
+  final randomDoc = Random().nextInt(watchingAnimes.size);
 
   return int.parse(watchingAnimes.docs[randomDoc].id);
 }
