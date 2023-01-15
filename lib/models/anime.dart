@@ -160,3 +160,27 @@ Future<List<Anime>> loadUpcomingSeasons() async {
   }
   return upcomingSeasons;
 }
+
+Future<List<Anime?>> loadAnimeSearch(String q, [List<int>? genresID]) async {
+  var parsedGenres = "";
+  if (genresID != null) {
+    parsedGenres = genresID.join(",");
+  }
+  final url =
+      Uri.parse("https://api.jikan.moe/v4/anime?q=$q&genres=$parsedGenres");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  if (json["data"] == null) {
+    return List.filled(1, null);
+    // An empty list = no results. But it is still a valid search.
+  }
+
+  List<Anime> animeSearch = [];
+
+  for (final animeData in data) {
+    animeSearch.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
+  }
+  return animeSearch;
+}
