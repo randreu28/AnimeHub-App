@@ -37,7 +37,7 @@ class _MyListScreenState extends State<MyListScreen> {
           ),
           Row(
             children: [
-              Image.network(anime!.image, height: 250),
+              Image.network(anime!.image!, height: 250),
             ],
           ),
         ],
