@@ -12,12 +12,19 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   String query = "";
   List<Anime>? topAnimes;
+  List<Anime>? upcomingSeasons;
 
   @override
   void initState() {
     loadTopAnimes().then((animes) => {
           setState(() {
             topAnimes = animes;
+          })
+        });
+
+    loadUpcomingSeasons().then((animes) => {
+          setState(() {
+            upcomingSeasons = animes;
           })
         });
     super.initState();
@@ -59,8 +66,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0),
-          child: Carousel(title: "Top Animes", animes: topAnimes),
-        )
+          child: Column(
+            children: [
+              Carousel(title: "Top Animes", animes: topAnimes),
+              Carousel(title: "Upcoming Seasons", animes: upcomingSeasons),
+            ],
+          ),
+        ),
       ],
     );
   }
