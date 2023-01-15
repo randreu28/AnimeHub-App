@@ -14,19 +14,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   List<Anime>? topAnimes;
   List<Anime>? upcomingSeasons;
 
+  onInit() async {
+    final newTopAnimes = await loadTopAnimes();
+    final newUpcomingSeasons = await loadUpcomingSeasons();
+    setState(() {
+      topAnimes = newTopAnimes;
+      upcomingSeasons = newUpcomingSeasons;
+    });
+  }
+
   @override
   void initState() {
-    loadTopAnimes().then((animes) => {
-          setState(() {
-            topAnimes = animes;
-          })
-        });
-
-    loadUpcomingSeasons().then((animes) => {
-          setState(() {
-            upcomingSeasons = animes;
-          })
-        });
+    onInit();
     super.initState();
   }
 
