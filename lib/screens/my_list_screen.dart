@@ -38,7 +38,58 @@ class _MyListScreenState extends State<MyListScreen> {
           ),
           Row(
             children: [
-              Image.network(anime!.image!, height: 250),
+              Column(
+                children: [
+                  //Image.network(anime!.image, height: 250),
+                  Image.network(
+                    fit: BoxFit.cover,
+                    'https://cdn.myanimelist.net/images/anime/1471/128323.jpg',
+                    height: 250,
+                  ),
+
+                  Container(
+                    decoration: const BoxDecoration(color: Colors.black),
+                    child: Column(
+                      children: [
+                        Column(
+                          children: const [
+                            Text("NAME",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.2)),
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    "TV",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Icon(Icons.star_border, color: Colors.white),
+                                  Text(
+                                    "SCORE",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Icon(Icons.person, color: Colors.white),
+                                  Text(
+                                    "USERS",
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ],
