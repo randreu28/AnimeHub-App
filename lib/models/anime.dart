@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -183,4 +184,23 @@ Future<List<Anime?>> loadAnimeSearch(String q, [List<int>? genresID]) async {
     animeSearch.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
   }
   return animeSearch;
+}
+
+Future<int> loadRandomWatchingAnime() async {
+  final db = FirebaseFirestore.instance;
+
+  final watchingAnimes = await db
+      .collection("animes")
+      .where("status", isEqualTo: "AnimeStatus.watching")
+      .get();
+
+  final length = watchingAnimes.size;
+  final randomDoc = Random().nextInt(watchingAnimes.size);
+
+  if (length == 0) {
+    return 0;
+    //If there isn't any anime being watched, return 0 to inform front-end
+  }
+
+  return int.parse(watchingAnimes.docs[randomDoc].id);
 }
