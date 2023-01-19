@@ -34,7 +34,9 @@ Future<AnimeStatus> loadStatus({required int animeID}) async {
 }
 
 Future<Anime> parseJsonToAnime(
-    {required dynamic data, required int animeID}) async {
+    {required dynamic data,
+    required int animeID,
+    required bool hasDbData}) async {
   return Anime(
     id: animeID,
     title: data["titles"][0]["title"],
@@ -49,18 +51,19 @@ Future<Anime> parseJsonToAnime(
     genres: List.generate(
         data["genres"].length, (genre) => data["genres"][genre]["name"]),
     episodes: data["episodes"],
-    isFavorite: await loadIsFavorite(animeID: animeID),
-    status: await loadStatus(animeID: animeID),
+    isFavorite: hasDbData ? await loadIsFavorite(animeID: animeID) : false,
+    status:
+        hasDbData ? await loadStatus(animeID: animeID) : AnimeStatus.notWatched,
   );
 }
 
-Future<Anime> loadAnime({required int animeID}) async {
+Future<Anime> loadAnime({required int animeID, required bool hasDbData}) async {
   final url = Uri.parse("https://api.jikan.moe/v4/anime/$animeID");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
   final data = json["data"];
 
-  return parseJsonToAnime(data: data, animeID: animeID);
+  return parseJsonToAnime(data: data, animeID: animeID, hasDbData: hasDbData);
 }
 
 Future<List<Anime>> loadTopAnimes() async {
@@ -72,8 +75,8 @@ Future<List<Anime>> loadTopAnimes() async {
   List<Anime> topAnimes = [];
 
   for (final animeData in data) {
-    topAnimes.add(
-        await parseJsonToAnime(data: animeData, animeID: animeData["mal_id"]));
+    topAnimes.add(await parseJsonToAnime(
+        data: animeData, animeID: animeData["mal_id"], hasDbData: false));
   }
   return topAnimes;
 }
@@ -84,7 +87,8 @@ Future<Anime> loadRandomAnime() async {
   final json = jsonDecode(response.body);
   final data = json["data"];
 
-  return parseJsonToAnime(data: data, animeID: data["mal_id"]);
+  return parseJsonToAnime(
+      data: data, animeID: data["mal_id"], hasDbData: false);
 }
 
 Future<List<Anime>> loadUpcomingSeasons() async {
@@ -96,8 +100,8 @@ Future<List<Anime>> loadUpcomingSeasons() async {
   List<Anime> upcomingSeasons = [];
 
   for (final animeData in data) {
-    upcomingSeasons.add(
-        await parseJsonToAnime(data: animeData, animeID: animeData["mal_id"]));
+    upcomingSeasons.add(await parseJsonToAnime(
+        data: animeData, animeID: animeData["mal_id"], hasDbData: false));
   }
   return upcomingSeasons;
 }
@@ -122,8 +126,8 @@ Future<List<Anime?>> loadAnimeSearch(
   List<Anime> animeSearch = [];
 
   for (final animeData in data) {
-    animeSearch.add(
-        await parseJsonToAnime(animeID: animeData, data: animeData["mal_id"]));
+    animeSearch.add(await parseJsonToAnime(
+        animeID: animeData, data: animeData["mal_id"], hasDbData: false));
   }
   return animeSearch;
 }
