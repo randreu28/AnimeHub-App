@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:p1_coronado/models/anime.dart';
-import 'package:p1_coronado/utilities/loaders.dart';
 
-class MyListScreen extends StatefulWidget {
-  const MyListScreen({super.key});
+class WatchingTab extends StatefulWidget {
+  const WatchingTab({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<MyListScreen> createState() => _MyListScreenState();
+  State<WatchingTab> createState() => _WatchingTabState();
 }
 
-class _MyListScreenState extends State<MyListScreen> {
+class _WatchingTabState extends State<WatchingTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
