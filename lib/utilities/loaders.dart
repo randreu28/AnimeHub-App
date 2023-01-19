@@ -5,37 +5,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:p1_coronado/models/user.dart';
 
-Future<List<Anime>> loadRecommendations({required int animeID}) async {
-  final url =
-      Uri.parse("https://api.jikan.moe/v4/anime/$animeID/recommendations");
-  final response = await http.get(url);
-  final json = jsonDecode(response.body);
-  final data = json["data"];
-
-  List<Anime> recommendations = [];
-
-  for (final recData in data) {
-    recommendations.add(Anime(
-      id: recData["entry"]["mal_id"],
-      image: recData["entry"]["images"]["jpg"]["image_url"],
-      title: recData["entry"]["title"],
-      airingStatus: null,
-      episodes: null,
-      favorites: null,
-      genres: null,
-      members: null,
-      popularity: null,
-      rank: null,
-      score: null,
-      synopsis: null,
-      isFavorite: false,
-      status: AnimeStatus.notWatched,
-    ));
-  }
-
-  return recommendations;
-}
-
 Future<bool> loadIsFavorite({required int animeID}) async {
   final db = FirebaseFirestore.instance;
 
@@ -203,4 +172,35 @@ Future<User> loadUser({required String username}) async {
           data["birthday"] != null ? DateTime.parse(data["birthday"]) : null,
       location: data["location"],
       joined: DateTime.parse(data["joined"]));
+}
+
+Future<List<Anime>> loadRecommendations({required int animeID}) async {
+  final url =
+      Uri.parse("https://api.jikan.moe/v4/anime/$animeID/recommendations");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  List<Anime> recommendations = [];
+
+  for (final recData in data) {
+    recommendations.add(Anime(
+      id: recData["entry"]["mal_id"],
+      image: recData["entry"]["images"]["jpg"]["image_url"],
+      title: recData["entry"]["title"],
+      airingStatus: null,
+      episodes: null,
+      favorites: null,
+      genres: null,
+      members: null,
+      popularity: null,
+      rank: null,
+      score: null,
+      synopsis: null,
+      isFavorite: false,
+      status: AnimeStatus.notWatched,
+    ));
+  }
+
+  return recommendations;
 }
