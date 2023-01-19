@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:p1_coronado/models/user.dart';
 
-Future<List<Anime>> loadRecommendations(int animeID) async {
+Future<List<Anime>> loadRecommendations({required int animeID}) async {
   final url =
       Uri.parse("https://api.jikan.moe/v4/anime/$animeID/recommendations");
   final response = await http.get(url);
@@ -36,7 +36,7 @@ Future<List<Anime>> loadRecommendations(int animeID) async {
   return recommendations;
 }
 
-Future<bool> loadIsFavorite(int animeID) async {
+Future<bool> loadIsFavorite({required int animeID}) async {
   final db = FirebaseFirestore.instance;
 
   final docRef = await db.collection("animes").doc(animeID.toString()).get();
@@ -48,7 +48,7 @@ Future<bool> loadIsFavorite(int animeID) async {
   return false;
 }
 
-Future<AnimeStatus> loadStatus(int animeID) async {
+Future<AnimeStatus> loadStatus({required int animeID}) async {
   final db = FirebaseFirestore.instance;
 
   final docRef = await db.collection("animes").doc(animeID.toString()).get();
@@ -64,7 +64,8 @@ Future<AnimeStatus> loadStatus(int animeID) async {
   return AnimeStatus.notWatched;
 }
 
-Future<Anime> parseJsonToAnime(dynamic data, int animeID) async {
+Future<Anime> parseJsonToAnime(
+    {required dynamic data, required int animeID}) async {
   return Anime(
     id: animeID,
     title: data["titles"][0]["title"],
@@ -79,18 +80,18 @@ Future<Anime> parseJsonToAnime(dynamic data, int animeID) async {
     genres: List.generate(
         data["genres"].length, (genre) => data["genres"][genre]["name"]),
     episodes: data["episodes"],
-    isFavorite: await loadIsFavorite(animeID),
-    status: await loadStatus(animeID),
+    isFavorite: await loadIsFavorite(animeID: animeID),
+    status: await loadStatus(animeID: animeID),
   );
 }
 
-Future<Anime> loadAnime(int animeID) async {
+Future<Anime> loadAnime({required int animeID}) async {
   final url = Uri.parse("https://api.jikan.moe/v4/anime/$animeID");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
   final data = json["data"];
 
-  return parseJsonToAnime(data, animeID);
+  return parseJsonToAnime(data: data, animeID: animeID);
 }
 
 Future<List<Anime>> loadTopAnimes() async {
@@ -102,7 +103,8 @@ Future<List<Anime>> loadTopAnimes() async {
   List<Anime> topAnimes = [];
 
   for (final animeData in data) {
-    topAnimes.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
+    topAnimes.add(
+        await parseJsonToAnime(data: animeData, animeID: animeData["mal_id"]));
   }
   return topAnimes;
 }
@@ -113,7 +115,7 @@ Future<Anime> loadRandomAnime() async {
   final json = jsonDecode(response.body);
   final data = json["data"];
 
-  return parseJsonToAnime(data, data["mal_id"]);
+  return parseJsonToAnime(data: data, animeID: data["mal_id"]);
 }
 
 Future<List<Anime>> loadUpcomingSeasons() async {
@@ -125,12 +127,14 @@ Future<List<Anime>> loadUpcomingSeasons() async {
   List<Anime> upcomingSeasons = [];
 
   for (final animeData in data) {
-    upcomingSeasons.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
+    upcomingSeasons.add(
+        await parseJsonToAnime(data: animeData, animeID: animeData["mal_id"]));
   }
   return upcomingSeasons;
 }
 
-Future<List<Anime?>> loadAnimeSearch(String q, [List<int>? genresID]) async {
+Future<List<Anime?>> loadAnimeSearch(
+    {required String q, required List<int>? genresID}) async {
   var parsedGenres = "";
   if (genresID != null) {
     parsedGenres = genresID.join(",");
@@ -149,7 +153,8 @@ Future<List<Anime?>> loadAnimeSearch(String q, [List<int>? genresID]) async {
   List<Anime> animeSearch = [];
 
   for (final animeData in data) {
-    animeSearch.add(await parseJsonToAnime(animeData, animeData["mal_id"]));
+    animeSearch.add(
+        await parseJsonToAnime(animeID: animeData, data: animeData["mal_id"]));
   }
   return animeSearch;
 }
@@ -173,7 +178,7 @@ Future<int> loadRandomWatchingAnime() async {
   return int.parse(watchingAnimes.docs[randomDoc].id);
 }
 
-Future<User> loadUser(String username) async {
+Future<User> loadUser({required String username}) async {
   final url = Uri.parse("https://api.jikan.moe/v4/users/$username");
   final response = await http.get(url);
   final json = jsonDecode(response.body);

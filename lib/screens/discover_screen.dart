@@ -23,7 +23,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     List<Anime> newRecommendations = [];
 
     if (newRandomWatchingAnime != 0) {
-      newRecommendations = await loadRecommendations(newRandomWatchingAnime);
+      newRecommendations =
+          await loadRecommendations(animeID: newRandomWatchingAnime);
     }
 
     if (mounted) {
