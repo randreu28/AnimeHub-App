@@ -65,7 +65,9 @@ Future<Anime> parseJsonToAnime(ref,
   );
 }
 
-Future<Anime> loadAnime({required int animeID, required bool hasDbData}) async {
+@riverpod
+Future<Anime> loadAnime(ref,
+    {required int animeID, required bool hasDbData}) async {
   final url = Uri.parse("https://api.jikan.moe/v4/anime/$animeID");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
@@ -75,7 +77,8 @@ Future<Anime> loadAnime({required int animeID, required bool hasDbData}) async {
       json: data, animeID: animeID, hasDbData: hasDbData);
 }
 
-Future<List<Anime>> loadTopAnimes() async {
+@riverpod
+Future<List<Anime>> loadTopAnimes(ref) async {
   final url = Uri.parse("https://api.jikan.moe/v4/top/anime");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
@@ -90,7 +93,8 @@ Future<List<Anime>> loadTopAnimes() async {
   return topAnimes;
 }
 
-Future<Anime> loadRandomAnime() async {
+@riverpod
+Future<Anime> loadRandomAnime(ref) async {
   final url = Uri.parse("https://api.jikan.moe/v4/random/anime");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
@@ -100,7 +104,8 @@ Future<Anime> loadRandomAnime() async {
       json: data, animeID: data["mal_id"], hasDbData: false);
 }
 
-Future<List<Anime>> loadUpcomingSeasons() async {
+@riverpod
+Future<List<Anime>> loadUpcomingSeasons(ref) async {
   final url = Uri.parse("https://api.jikan.moe/v4/seasons/upcoming");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
@@ -115,7 +120,8 @@ Future<List<Anime>> loadUpcomingSeasons() async {
   return upcomingSeasons;
 }
 
-Future<List<Anime?>> loadAnimeSearch(
+@riverpod
+Future<List<Anime?>> loadAnimeSearch(ref,
     {required String query, required List<int>? genresID}) async {
   var parsedGenres = "";
   if (genresID != null) {
@@ -141,7 +147,8 @@ Future<List<Anime?>> loadAnimeSearch(
   return animeSearch;
 }
 
-Future<int> loadRandomWatchingAnime() async {
+@riverpod
+Future<int> loadRandomWatchingAnime(ref) async {
   final db = FirebaseFirestore.instance;
 
   final watchingAnimes = await db
@@ -160,7 +167,8 @@ Future<int> loadRandomWatchingAnime() async {
   return int.parse(watchingAnimes.docs[randomDoc].id);
 }
 
-Future<User> loadUser({required String username}) async {
+@riverpod
+Future<User> loadUser(ref, {required String username}) async {
   final url = Uri.parse("https://api.jikan.moe/v4/users/$username");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
@@ -187,7 +195,8 @@ Future<User> loadUser({required String username}) async {
       joined: DateTime.parse(data["joined"]));
 }
 
-Future<List<Anime>> loadRecommendations({required int animeID}) async {
+@riverpod
+Future<List<Anime>> loadRecommendations(ref, {required int animeID}) async {
   final url =
       Uri.parse("https://api.jikan.moe/v4/anime/$animeID/recommendations");
   final response = await http.get(url);

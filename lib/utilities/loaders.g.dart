@@ -255,3 +255,349 @@ class ParseJsonToAnimeFamily extends Family<AsyncValue<Anime>> {
   @override
   String? get name => r'parseJsonToAnimeProvider';
 }
+
+String _$loadAnimeHash() => r'b56d970c822376b8588e0aee21dc134159e8ab7a';
+
+/// See also [loadAnime].
+class LoadAnimeProvider extends AutoDisposeFutureProvider<Anime> {
+  LoadAnimeProvider({
+    required this.animeID,
+    required this.hasDbData,
+  }) : super(
+          (ref) => loadAnime(
+            ref,
+            animeID: animeID,
+            hasDbData: hasDbData,
+          ),
+          from: loadAnimeProvider,
+          name: r'loadAnimeProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$loadAnimeHash,
+        );
+
+  final int animeID;
+  final bool hasDbData;
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadAnimeProvider &&
+        other.animeID == animeID &&
+        other.hasDbData == hasDbData;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, animeID.hashCode);
+    hash = _SystemHash.combine(hash, hasDbData.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef LoadAnimeRef = AutoDisposeFutureProviderRef<Anime>;
+
+/// See also [loadAnime].
+final loadAnimeProvider = LoadAnimeFamily();
+
+class LoadAnimeFamily extends Family<AsyncValue<Anime>> {
+  LoadAnimeFamily();
+
+  LoadAnimeProvider call({
+    required int animeID,
+    required bool hasDbData,
+  }) {
+    return LoadAnimeProvider(
+      animeID: animeID,
+      hasDbData: hasDbData,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<Anime> getProviderOverride(
+    covariant LoadAnimeProvider provider,
+  ) {
+    return call(
+      animeID: provider.animeID,
+      hasDbData: provider.hasDbData,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'loadAnimeProvider';
+}
+
+String _$loadTopAnimesHash() => r'ba3c75a9b5b5866b403ef72d0f99758203b10c98';
+
+/// See also [loadTopAnimes].
+final loadTopAnimesProvider = AutoDisposeFutureProvider<List<Anime>>(
+  loadTopAnimes,
+  name: r'loadTopAnimesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadTopAnimesHash,
+);
+typedef LoadTopAnimesRef = AutoDisposeFutureProviderRef<List<Anime>>;
+String _$loadRandomAnimeHash() => r'82d96583adcf22e76e0e16da1ee9ecba2104a636';
+
+/// See also [loadRandomAnime].
+final loadRandomAnimeProvider = AutoDisposeFutureProvider<Anime>(
+  loadRandomAnime,
+  name: r'loadRandomAnimeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadRandomAnimeHash,
+);
+typedef LoadRandomAnimeRef = AutoDisposeFutureProviderRef<Anime>;
+String _$loadUpcomingSeasonsHash() =>
+    r'6a361b937d2db0e47219cb9377a5e586d6366fdb';
+
+/// See also [loadUpcomingSeasons].
+final loadUpcomingSeasonsProvider = AutoDisposeFutureProvider<List<Anime>>(
+  loadUpcomingSeasons,
+  name: r'loadUpcomingSeasonsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadUpcomingSeasonsHash,
+);
+typedef LoadUpcomingSeasonsRef = AutoDisposeFutureProviderRef<List<Anime>>;
+String _$loadAnimeSearchHash() => r'98406b4f63d42236c0512068fd2162ed63603e3b';
+
+/// See also [loadAnimeSearch].
+class LoadAnimeSearchProvider extends AutoDisposeFutureProvider<List<Anime?>> {
+  LoadAnimeSearchProvider({
+    required this.query,
+    required this.genresID,
+  }) : super(
+          (ref) => loadAnimeSearch(
+            ref,
+            query: query,
+            genresID: genresID,
+          ),
+          from: loadAnimeSearchProvider,
+          name: r'loadAnimeSearchProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$loadAnimeSearchHash,
+        );
+
+  final String query;
+  final List<int>? genresID;
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadAnimeSearchProvider &&
+        other.query == query &&
+        other.genresID == genresID;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, query.hashCode);
+    hash = _SystemHash.combine(hash, genresID.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef LoadAnimeSearchRef = AutoDisposeFutureProviderRef<List<Anime?>>;
+
+/// See also [loadAnimeSearch].
+final loadAnimeSearchProvider = LoadAnimeSearchFamily();
+
+class LoadAnimeSearchFamily extends Family<AsyncValue<List<Anime?>>> {
+  LoadAnimeSearchFamily();
+
+  LoadAnimeSearchProvider call({
+    required String query,
+    required List<int>? genresID,
+  }) {
+    return LoadAnimeSearchProvider(
+      query: query,
+      genresID: genresID,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<Anime?>> getProviderOverride(
+    covariant LoadAnimeSearchProvider provider,
+  ) {
+    return call(
+      query: provider.query,
+      genresID: provider.genresID,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'loadAnimeSearchProvider';
+}
+
+String _$loadRandomWatchingAnimeHash() =>
+    r'c89b67295eca9519fc75493793c2f02626630d78';
+
+/// See also [loadRandomWatchingAnime].
+final loadRandomWatchingAnimeProvider = AutoDisposeFutureProvider<int>(
+  loadRandomWatchingAnime,
+  name: r'loadRandomWatchingAnimeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadRandomWatchingAnimeHash,
+);
+typedef LoadRandomWatchingAnimeRef = AutoDisposeFutureProviderRef<int>;
+String _$loadUserHash() => r'5e2a902f2a4decef2e1549c030c22784ded42e6b';
+
+/// See also [loadUser].
+class LoadUserProvider extends AutoDisposeFutureProvider<User> {
+  LoadUserProvider({
+    required this.username,
+  }) : super(
+          (ref) => loadUser(
+            ref,
+            username: username,
+          ),
+          from: loadUserProvider,
+          name: r'loadUserProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$loadUserHash,
+        );
+
+  final String username;
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadUserProvider && other.username == username;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, username.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef LoadUserRef = AutoDisposeFutureProviderRef<User>;
+
+/// See also [loadUser].
+final loadUserProvider = LoadUserFamily();
+
+class LoadUserFamily extends Family<AsyncValue<User>> {
+  LoadUserFamily();
+
+  LoadUserProvider call({
+    required String username,
+  }) {
+    return LoadUserProvider(
+      username: username,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<User> getProviderOverride(
+    covariant LoadUserProvider provider,
+  ) {
+    return call(
+      username: provider.username,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'loadUserProvider';
+}
+
+String _$loadRecommendationsHash() =>
+    r'd14bd3438d4d879a592c45aa045eb9a043d05f48';
+
+/// See also [loadRecommendations].
+class LoadRecommendationsProvider
+    extends AutoDisposeFutureProvider<List<Anime>> {
+  LoadRecommendationsProvider({
+    required this.animeID,
+  }) : super(
+          (ref) => loadRecommendations(
+            ref,
+            animeID: animeID,
+          ),
+          from: loadRecommendationsProvider,
+          name: r'loadRecommendationsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$loadRecommendationsHash,
+        );
+
+  final int animeID;
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadRecommendationsProvider && other.animeID == animeID;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, animeID.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef LoadRecommendationsRef = AutoDisposeFutureProviderRef<List<Anime>>;
+
+/// See also [loadRecommendations].
+final loadRecommendationsProvider = LoadRecommendationsFamily();
+
+class LoadRecommendationsFamily extends Family<AsyncValue<List<Anime>>> {
+  LoadRecommendationsFamily();
+
+  LoadRecommendationsProvider call({
+    required int animeID,
+  }) {
+    return LoadRecommendationsProvider(
+      animeID: animeID,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<Anime>> getProviderOverride(
+    covariant LoadRecommendationsProvider provider,
+  ) {
+    return call(
+      animeID: provider.animeID,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'loadRecommendationsProvider';
+}
