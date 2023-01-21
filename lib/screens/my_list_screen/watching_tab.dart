@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
+import 'package:p1_coronado/models/anime.dart';
+import 'package:p1_coronado/utilities/loaders.dart';
+import 'package:p1_coronado/widgets/anime_card.dart';
 
 class WatchingTab extends StatefulWidget {
   const WatchingTab({
@@ -10,115 +14,45 @@ class WatchingTab extends StatefulWidget {
 }
 
 class _WatchingTabState extends State<WatchingTab> {
+  List<Anime>? watchingAnimes;
+
+  onInit() async {
+    final incomingAnimes = await loadTopAnimes();
+
+    if (mounted) {
+      setState(() {
+        watchingAnimes = incomingAnimes;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    onInit();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (watchingAnimes == null) {
+      return const Center(
+        child: LoadingIndicator(size: 20, borderWidth: 1),
+      );
+    }
+
+    if (watchingAnimes!.isEmpty) {
+      return const Center(
+        child: Text("You have no watching animes"),
+      );
+    }
+
     return Scaffold(
-      body: Column(
+      body: GridView.count(
+        padding: const EdgeInsets.all(5),
+        crossAxisCount: 2,
+        childAspectRatio: 225 / 400, //Sizes of all images + text,
         children: [
-          Column(
-            children: const [Text("MYLIST")],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 180,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      //imagen
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //Image.network(anime!.image, height: 250),
-                          Image.network(
-                            'https://cdn.myanimelist.net/images/anime/1471/128323.jpg',
-                            /* height: 150 */
-                          ),
-                        ],
-                      ),
-                      //info
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.6),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  children: const [
-                                    Text("NAME",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold))
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Container(
-                                      child: Row(
-                                        children: const [
-                                          Text(
-                                            "TV",
-                                            textAlign: TextAlign.left,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Icon(Icons.star_border,
-                                              color: Colors.white),
-                                          Text(
-                                            "SCORE",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Icon(Icons.person,
-                                              color: Colors.white),
-                                          Text(
-                                            "USERS",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //icon
-                      Align(
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.8),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(2)),
-                          ),
-                          child: const Icon(
-                            Icons.favorite_border,
-                            size: 50,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          for (final anime in watchingAnimes!) ...[AnimeCard(anime: anime)],
         ],
       ),
     );
