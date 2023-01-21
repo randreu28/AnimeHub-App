@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p1_coronado/screens/discover_screen.dart';
 import 'package:p1_coronado/screens/my_list_screen/favorites_tab.dart';
 import 'package:p1_coronado/screens/my_list_screen/watched_tab.dart';
@@ -16,7 +17,7 @@ void main() async {
   );
 
   runApp(const AuthGate(
-    app: MyApp(),
+    app: ProviderScope(child: MyApp()),
   ));
 }
 
