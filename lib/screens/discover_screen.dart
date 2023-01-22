@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p1_coronado/models/anime.dart';
+import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/carousel.dart';
 
-class DiscoverScreen extends StatefulWidget {
+class DiscoverScreen extends ConsumerStatefulWidget {
   const DiscoverScreen({super.key});
 
   @override
-  State<DiscoverScreen> createState() => _DiscoverScreenState();
+  ConsumerState<DiscoverScreen> createState() => _DiscoverScreenState();
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen> {
+class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
   String query = "";
   List<Anime>? topAnimes;
   List<Anime>? upcomingSeasons;
   List<Anime>? recommended;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +55,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           padding: const EdgeInsets.only(left: 20.0),
           child: Column(
             children: [
-              Carousel(title: "Recommended for you", animes: recommended),
-              Carousel(title: "Top Animes", animes: topAnimes),
-              Carousel(title: "Upcoming Seasons", animes: upcomingSeasons),
+              //Carousel(title: "Recommended for you", animes: recommended),
+              Carousel(
+                title: "Top Animes",
+                animes: loadTopAnimesProvider,
+              ),
+              Carousel(
+                title: "Upcoming Seasons",
+                animes: loadUpcomingSeasonsProvider,
+              ),
             ],
           ),
         ),
