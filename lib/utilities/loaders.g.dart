@@ -448,18 +448,18 @@ class LoadAnimeSearchFamily extends Family<AsyncValue<List<Anime?>>> {
   String? get name => r'loadAnimeSearchProvider';
 }
 
-String _$loadRandomWatchingAnimeHash() =>
-    r'c89b67295eca9519fc75493793c2f02626630d78';
+String _$loadRandomCompletedAnimeHash() =>
+    r'90b8e75ade0639cc58f34731af302d254e911e52';
 
-/// See also [loadRandomWatchingAnime].
-final loadRandomWatchingAnimeProvider = AutoDisposeFutureProvider<int>(
-  loadRandomWatchingAnime,
-  name: r'loadRandomWatchingAnimeProvider',
+/// See also [loadRandomCompletedAnime].
+final loadRandomCompletedAnimeProvider = AutoDisposeFutureProvider<int>(
+  loadRandomCompletedAnime,
+  name: r'loadRandomCompletedAnimeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$loadRandomWatchingAnimeHash,
+      : _$loadRandomCompletedAnimeHash,
 );
-typedef LoadRandomWatchingAnimeRef = AutoDisposeFutureProviderRef<int>;
+typedef LoadRandomCompletedAnimeRef = AutoDisposeFutureProviderRef<int>;
 String _$loadUserHash() => r'caba9226cd92604772da8dca4c6bd96a024d3280';
 
 /// See also [loadUser].

@@ -168,12 +168,12 @@ Future<List<Anime?>> loadAnimeSearch(ref,
 }
 
 @riverpod
-Future<int> loadRandomWatchingAnime(ref) async {
+Future<int> loadRandomCompletedAnime(ref) async {
   final db = FirebaseFirestore.instance;
 
   final watchingAnimes = await db
       .collection("animes")
-      .where("status", isEqualTo: "AnimeStatus.watched")
+      .where("status", isEqualTo: AnimeStatus.completed.toString())
       .get();
 
   final length = watchingAnimes.size;
