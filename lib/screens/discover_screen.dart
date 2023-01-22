@@ -28,19 +28,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               onSubmitted: (value) {
                 /* TODO: Search anime and display it */
               },
-              cursorColor: Colors.grey,
               decoration: InputDecoration(
-                fillColor: Colors.white,
                 filled: true,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none),
                 hintText: 'Search',
-                hintStyle: const TextStyle(color: Colors.grey, fontSize: 18),
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.teal,
+                ),
                 suffixIcon: IconButton(
-                  splashColor: Colors.white,
-                  icon: const Icon(Icons.tune),
+                  icon: const Icon(Icons.tune, color: Colors.teal),
                   onPressed: () {
                     /* TODO: Search by genre */
                   },
