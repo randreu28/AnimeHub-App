@@ -601,3 +601,73 @@ class LoadRecommendationsFamily extends Family<AsyncValue<List<Anime>>> {
   @override
   String? get name => r'loadRecommendationsProvider';
 }
+
+String _$loadStatusIDsHash() => r'640be8b93755543c3dec24fdbf380011ba7951a9';
+
+/// See also [loadStatusIDs].
+class LoadStatusIDsProvider extends AutoDisposeFutureProvider<List<int>> {
+  LoadStatusIDsProvider({
+    required this.status,
+  }) : super(
+          (ref) => loadStatusIDs(
+            ref,
+            status: status,
+          ),
+          from: loadStatusIDsProvider,
+          name: r'loadStatusIDsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$loadStatusIDsHash,
+        );
+
+  final AnimeStatus status;
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadStatusIDsProvider && other.status == status;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef LoadStatusIDsRef = AutoDisposeFutureProviderRef<List<int>>;
+
+/// See also [loadStatusIDs].
+final loadStatusIDsProvider = LoadStatusIDsFamily();
+
+class LoadStatusIDsFamily extends Family<AsyncValue<List<int>>> {
+  LoadStatusIDsFamily();
+
+  LoadStatusIDsProvider call({
+    required AnimeStatus status,
+  }) {
+    return LoadStatusIDsProvider(
+      status: status,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<int>> getProviderOverride(
+    covariant LoadStatusIDsProvider provider,
+  ) {
+    return call(
+      status: provider.status,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'loadStatusIDsProvider';
+}
