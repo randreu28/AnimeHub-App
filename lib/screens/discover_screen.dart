@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:p1_coronado/models/anime.dart';
-import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/carousel.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -16,29 +15,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   List<Anime>? upcomingSeasons;
   List<Anime>? recommended;
 
-  onInit() async {
-    final newTopAnimes = await loadTopAnimes();
-    final newUpcomingSeasons = await loadUpcomingSeasons();
-    final newRandomWatchingAnime = await loadRandomWatchingAnime();
-    List<Anime> newRecommendations = [];
-
-    if (newRandomWatchingAnime != 0) {
-      newRecommendations =
-          await loadRecommendations(animeID: newRandomWatchingAnime);
-    }
-
-    if (mounted) {
-      setState(() {
-        topAnimes = newTopAnimes;
-        upcomingSeasons = newUpcomingSeasons;
-        recommended = newRecommendations;
-      });
-    }
-  }
-
   @override
   void initState() {
-    onInit();
     super.initState();
   }
 
