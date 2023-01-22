@@ -124,7 +124,6 @@ class AnimeCard extends ConsumerWidget {
             ),
           ),
         );
-        ;
       },
       loading: () {
         return const Center(

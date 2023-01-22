@@ -47,7 +47,6 @@ class WatchingTab extends ConsumerWidget {
             style: const TextStyle(fontSize: 15, color: Colors.red),
           ),
         );
-        ;
       },
       loading: () {
         return const Center(
