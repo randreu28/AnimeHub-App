@@ -29,7 +29,7 @@ class Anime {
     docRef.set(<String, dynamic>{
       "isFavorite": isFavorite,
       "status": newAnimeStatus.toString(),
-    }).catchError((error) => {print(error.toString())});
+    }).catchError((error) => {throw Exception(error)});
 
     status = newAnimeStatus;
   }
@@ -41,7 +41,7 @@ class Anime {
     docRef.set(<String, dynamic>{
       "isFavorite": newIsFavorite,
       "status": status,
-    }).catchError((error) => {print(error.toString())});
+    }).catchError((error) => {throw Exception(error)});
 
     isFavorite = newIsFavorite;
   }

@@ -11,7 +11,11 @@ part 'loaders.g.dart';
 Future<bool> loadIsFavorite(ref, {required int animeID}) async {
   final db = FirebaseFirestore.instance;
 
-  final docRef = await db.collection("animes").doc(animeID.toString()).get();
+  final docRef = await db
+      .collection("animes")
+      .doc(animeID.toString())
+      .get()
+      .onError((error, stackTrace) => throw Exception(error));
 
   if (docRef.exists) {
     final data = docRef.data() as Map<String, dynamic>;
@@ -24,7 +28,11 @@ Future<bool> loadIsFavorite(ref, {required int animeID}) async {
 Future<AnimeStatus> loadStatus(ref, {required int animeID}) async {
   final db = FirebaseFirestore.instance;
 
-  final docRef = await db.collection("animes").doc(animeID.toString()).get();
+  final docRef = await db
+      .collection("animes")
+      .doc(animeID.toString())
+      .get()
+      .onError((error, stackTrace) => throw Exception(error));
 
   if (docRef.exists) {
     final data = docRef.data() as Map<String, dynamic>;
@@ -174,7 +182,8 @@ Future<int> loadRandomCompletedAnime(ref) async {
   final watchingAnimes = await db
       .collection("animes")
       .where("status", isEqualTo: AnimeStatus.completed.toString())
-      .get();
+      .get()
+      .onError((error, stackTrace) => throw Exception(error));
 
   final length = watchingAnimes.size;
 
@@ -262,7 +271,8 @@ Future<List<int>> loadStatusIDs(ref, {required AnimeStatus status}) async {
   final watchingAnimes = await db
       .collection("animes")
       .where("status", isEqualTo: status.toString())
-      .get();
+      .get()
+      .onError((error, stackTrace) => throw Exception(error));
 
   return watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList();
 }
@@ -277,7 +287,8 @@ Future<List<int>> loadFavoriteIDs(ref) async {
         "isFavorite",
         isEqualTo: true,
       )
-      .get();
+      .get()
+      .onError((error, stackTrace) => throw Exception(error));
 
   return watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList();
 }

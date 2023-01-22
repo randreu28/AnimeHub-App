@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$loadIsFavoriteHash() => r'6d52be3b6bbce871ce8eb42598f497876dc91d7c';
+String _$loadIsFavoriteHash() => r'6ce3e9e2dac467ae6cf26ff3aa5f91ddb0fa388b';
 
 /// See also [loadIsFavorite].
 class LoadIsFavoriteProvider extends AutoDisposeFutureProvider<bool> {
@@ -99,7 +99,7 @@ class LoadIsFavoriteFamily extends Family<AsyncValue<bool>> {
   String? get name => r'loadIsFavoriteProvider';
 }
 
-String _$loadStatusHash() => r'fb389d4d4f581bb3180d606da339de136d56c7f0';
+String _$loadStatusHash() => r'6608aebf0da0e375930e3e5b4f8cae34d3305120';
 
 /// See also [loadStatus].
 class LoadStatusProvider extends AutoDisposeFutureProvider<AnimeStatus> {
@@ -449,7 +449,7 @@ class LoadAnimeSearchFamily extends Family<AsyncValue<List<Anime?>>> {
 }
 
 String _$loadRandomCompletedAnimeHash() =>
-    r'90b8e75ade0639cc58f34731af302d254e911e52';
+    r'10e83522550cb9bd404b86712f694fda3e266e4e';
 
 /// See also [loadRandomCompletedAnime].
 final loadRandomCompletedAnimeProvider = AutoDisposeFutureProvider<int>(
@@ -602,7 +602,7 @@ class LoadRecommendationsFamily extends Family<AsyncValue<List<Anime>>> {
   String? get name => r'loadRecommendationsProvider';
 }
 
-String _$loadStatusIDsHash() => r'389e96345c84f21b3a968783fff52f6b975793b2';
+String _$loadStatusIDsHash() => r'a4e36078ca2267d032dbf5dca8af6898d6383c4a';
 
 /// See also [loadStatusIDs].
 class LoadStatusIDsProvider extends AutoDisposeFutureProvider<List<int>> {
@@ -672,7 +672,7 @@ class LoadStatusIDsFamily extends Family<AsyncValue<List<int>>> {
   String? get name => r'loadStatusIDsProvider';
 }
 
-String _$loadFavoriteIDsHash() => r'1ced66df5a581dfbd5d2765338806b752b0cb6a0';
+String _$loadFavoriteIDsHash() => r'cc5b51fc4dbc7c0f99111a4af862bf6e34803171';
 
 /// See also [loadFavoriteIDs].
 final loadFavoriteIDsProvider = AutoDisposeFutureProvider<List<int>>(
