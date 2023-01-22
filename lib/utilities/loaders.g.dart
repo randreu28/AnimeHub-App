@@ -671,3 +671,15 @@ class LoadStatusIDsFamily extends Family<AsyncValue<List<int>>> {
   @override
   String? get name => r'loadStatusIDsProvider';
 }
+
+String _$loadFavoriteIDsHash() => r'1ced66df5a581dfbd5d2765338806b752b0cb6a0';
+
+/// See also [loadFavoriteIDs].
+final loadFavoriteIDsProvider = AutoDisposeFutureProvider<List<int>>(
+  loadFavoriteIDs,
+  name: r'loadFavoriteIDsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadFavoriteIDsHash,
+);
+typedef LoadFavoriteIDsRef = AutoDisposeFutureProviderRef<List<int>>;

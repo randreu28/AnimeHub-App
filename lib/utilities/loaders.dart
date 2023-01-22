@@ -266,3 +266,18 @@ Future<List<int>> loadStatusIDs(ref, {required AnimeStatus status}) async {
 
   return watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList();
 }
+
+@riverpod
+Future<List<int>> loadFavoriteIDs(ref) async {
+  final db = FirebaseFirestore.instance;
+
+  final watchingAnimes = await db
+      .collection("animes")
+      .where(
+        "isFavorite",
+        isEqualTo: true,
+      )
+      .get();
+
+  return watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList();
+}
