@@ -256,7 +256,7 @@ class ParseJsonToAnimeFamily extends Family<AsyncValue<Anime>> {
   String? get name => r'parseJsonToAnimeProvider';
 }
 
-String _$loadAnimeHash() => r'b56d970c822376b8588e0aee21dc134159e8ab7a';
+String _$loadAnimeHash() => r'99f6734fed0b4e2a30e24fe75c5706a6097e77ba';
 
 /// See also [loadAnime].
 class LoadAnimeProvider extends AutoDisposeFutureProvider<Anime> {
@@ -335,7 +335,7 @@ class LoadAnimeFamily extends Family<AsyncValue<Anime>> {
   String? get name => r'loadAnimeProvider';
 }
 
-String _$loadTopAnimesHash() => r'ba3c75a9b5b5866b403ef72d0f99758203b10c98';
+String _$loadTopAnimesHash() => r'e2a18433f0bde0bc12a6514f69ffc38acb65fec5';
 
 /// See also [loadTopAnimes].
 final loadTopAnimesProvider = AutoDisposeFutureProvider<List<Anime>>(
@@ -346,7 +346,7 @@ final loadTopAnimesProvider = AutoDisposeFutureProvider<List<Anime>>(
       : _$loadTopAnimesHash,
 );
 typedef LoadTopAnimesRef = AutoDisposeFutureProviderRef<List<Anime>>;
-String _$loadRandomAnimeHash() => r'82d96583adcf22e76e0e16da1ee9ecba2104a636';
+String _$loadRandomAnimeHash() => r'80edef08e27ee728e4ecf3b3189dad9bbeeab028';
 
 /// See also [loadRandomAnime].
 final loadRandomAnimeProvider = AutoDisposeFutureProvider<Anime>(
@@ -358,7 +358,7 @@ final loadRandomAnimeProvider = AutoDisposeFutureProvider<Anime>(
 );
 typedef LoadRandomAnimeRef = AutoDisposeFutureProviderRef<Anime>;
 String _$loadUpcomingSeasonsHash() =>
-    r'6a361b937d2db0e47219cb9377a5e586d6366fdb';
+    r'3380b57e64e9ab24c7e5a6b359825797025a94d2';
 
 /// See also [loadUpcomingSeasons].
 final loadUpcomingSeasonsProvider = AutoDisposeFutureProvider<List<Anime>>(
@@ -369,7 +369,7 @@ final loadUpcomingSeasonsProvider = AutoDisposeFutureProvider<List<Anime>>(
       : _$loadUpcomingSeasonsHash,
 );
 typedef LoadUpcomingSeasonsRef = AutoDisposeFutureProviderRef<List<Anime>>;
-String _$loadAnimeSearchHash() => r'98406b4f63d42236c0512068fd2162ed63603e3b';
+String _$loadAnimeSearchHash() => r'2029005e4a43c14b02f9613e2c03cfd7f3ca0ba6';
 
 /// See also [loadAnimeSearch].
 class LoadAnimeSearchProvider extends AutoDisposeFutureProvider<List<Anime?>> {
@@ -460,7 +460,7 @@ final loadRandomWatchingAnimeProvider = AutoDisposeFutureProvider<int>(
       : _$loadRandomWatchingAnimeHash,
 );
 typedef LoadRandomWatchingAnimeRef = AutoDisposeFutureProviderRef<int>;
-String _$loadUserHash() => r'5e2a902f2a4decef2e1549c030c22784ded42e6b';
+String _$loadUserHash() => r'caba9226cd92604772da8dca4c6bd96a024d3280';
 
 /// See also [loadUser].
 class LoadUserProvider extends AutoDisposeFutureProvider<User> {
@@ -531,7 +531,7 @@ class LoadUserFamily extends Family<AsyncValue<User>> {
 }
 
 String _$loadRecommendationsHash() =>
-    r'd14bd3438d4d879a592c45aa045eb9a043d05f48';
+    r'ab305ac522c3ee1bedebb1b1bda336eabdef6874';
 
 /// See also [loadRecommendations].
 class LoadRecommendationsProvider
@@ -602,7 +602,7 @@ class LoadRecommendationsFamily extends Family<AsyncValue<List<Anime>>> {
   String? get name => r'loadRecommendationsProvider';
 }
 
-String _$loadStatusIDsHash() => r'640be8b93755543c3dec24fdbf380011ba7951a9';
+String _$loadStatusIDsHash() => r'389e96345c84f21b3a968783fff52f6b975793b2';
 
 /// See also [loadStatusIDs].
 class LoadStatusIDsProvider extends AutoDisposeFutureProvider<List<int>> {

@@ -71,6 +71,10 @@ Future<Anime> loadAnime(ref,
   final url = Uri.parse("https://api.jikan.moe/v4/anime/$animeID");
   final response = await http.get(url);
   final json = jsonDecode(response.body);
+
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
   final data = json["data"];
 
   return parseJsonToAnime(animeID,
@@ -83,6 +87,10 @@ Future<List<Anime>> loadTopAnimes(ref) async {
   final response = await http.get(url);
   final json = jsonDecode(response.body);
   final data = json["data"];
+
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
 
   List<Anime> topAnimes = [];
 
@@ -100,6 +108,10 @@ Future<Anime> loadRandomAnime(ref) async {
   final json = jsonDecode(response.body);
   final data = json["data"];
 
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
+
   return parseJsonToAnime(data["mal_id"],
       json: data, animeID: data["mal_id"], hasDbData: false);
 }
@@ -110,6 +122,10 @@ Future<List<Anime>> loadUpcomingSeasons(ref) async {
   final response = await http.get(url);
   final json = jsonDecode(response.body);
   final data = json["data"];
+
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
 
   List<Anime> upcomingSeasons = [];
 
@@ -132,6 +148,10 @@ Future<List<Anime?>> loadAnimeSearch(ref,
   final response = await http.get(url);
   final json = jsonDecode(response.body);
   final data = json["data"];
+
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
 
   if (json["data"] == null) {
     return List.filled(1, null);
@@ -174,6 +194,10 @@ Future<User> loadUser(ref, {required String username}) async {
   final json = jsonDecode(response.body);
   final data = json["data"];
 
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
+
   Gender? newGender;
 
   if (data["gender"] == null) {
@@ -202,6 +226,10 @@ Future<List<Anime>> loadRecommendations(ref, {required int animeID}) async {
   final response = await http.get(url);
   final json = jsonDecode(response.body);
   final data = json["data"];
+
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
 
   List<Anime> recommendations = [];
 
@@ -235,8 +263,6 @@ Future<List<int>> loadStatusIDs(ref, {required AnimeStatus status}) async {
       .collection("animes")
       .where("status", isEqualTo: status.toString())
       .get();
-
-  print(watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList());
 
   return watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList();
 }
