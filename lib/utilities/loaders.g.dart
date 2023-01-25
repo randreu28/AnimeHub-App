@@ -99,7 +99,7 @@ class LoadIsFavoriteFamily extends Family<AsyncValue<bool>> {
   String? get name => r'loadIsFavoriteProvider';
 }
 
-String _$loadStatusHash() => r'6608aebf0da0e375930e3e5b4f8cae34d3305120';
+String _$loadStatusHash() => r'22f14d7a5103290f851c6f1b660b72d9dc5c63b4';
 
 /// See also [loadStatus].
 class LoadStatusProvider extends AutoDisposeFutureProvider<AnimeStatus> {

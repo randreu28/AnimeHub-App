@@ -38,7 +38,8 @@ Future<AnimeStatus> loadStatus(ref, {required int animeID}) async {
     final data = docRef.data() as Map<String, dynamic>;
 
     AnimeStatus status = AnimeStatus.values //Converts string to enum
-        .firstWhere((e) => e.toString() == data["status"]);
+        .firstWhere((e) => e.toString() == data["status"],
+            orElse: () => AnimeStatus.notWatched);
 
     return status;
   }
