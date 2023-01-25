@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
-      home: NavBar(),
+      home: const NavBar(),
     );
   }
 }
@@ -74,7 +74,7 @@ class _NavBarState extends State<NavBar> {
                     Tab(
                       text: "Watching",
                     ),
-                    Tab(text: "Watched"),
+                    Tab(text: "Completed"),
                     Tab(text: "Favorites"),
                   ],
                 )
