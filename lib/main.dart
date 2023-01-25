@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p1_coronado/screens/discover_screen.dart';
 import 'package:p1_coronado/screens/my_list_screen/favorites_tab.dart';
-import 'package:p1_coronado/screens/my_list_screen/watched_tab.dart';
+import 'package:p1_coronado/screens/my_list_screen/completed_tab.dart';
 import 'package:p1_coronado/screens/my_list_screen/watching_tab.dart';
 import 'package:p1_coronado/screens/profile_screen.dart';
 import 'package:p1_coronado/widgets/auth_gate.dart';
@@ -49,7 +49,7 @@ class _NavBarState extends State<NavBar> {
     TabBarView(
       children: [
         WatchingTab(),
-        WatchedTab(),
+        CompletedTab(),
         FavoritesTab(),
       ],
     ),

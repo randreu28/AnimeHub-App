@@ -5,8 +5,8 @@ import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/anime_card.dart';
 
-class WatchedTab extends ConsumerWidget {
-  const WatchedTab({super.key});
+class CompletedTab extends ConsumerWidget {
+  const CompletedTab({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
