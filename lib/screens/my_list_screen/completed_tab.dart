@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
-import 'package:p1_coronado/widgets/anime_card.dart';
+import 'package:p1_coronado/widgets/anime_grid.dart';
 
 class CompletedTab extends ConsumerWidget {
   const CompletedTab({super.key});
@@ -19,23 +19,14 @@ class CompletedTab extends ConsumerWidget {
         if (watchedAnimes.isEmpty) {
           return const Center(
             child: Text(
-              "You are not watching any anime yet",
+              "You haven't completed any anime yet",
               maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 15, color: Colors.grey),
             ),
           );
         }
-        return Scaffold(
-          body: GridView.count(
-            padding: const EdgeInsets.all(5),
-            crossAxisCount: 2,
-            childAspectRatio: 225 / 400, //Sizes of all images + text,
-            children: [
-              for (final id in watchedAnimes) ...[AnimeCard(animeID: id)],
-            ],
-          ),
-        );
+        return AnimeGrid(animes: watchedAnimes);
       },
       error: (error, stackTrace) {
         return Center(

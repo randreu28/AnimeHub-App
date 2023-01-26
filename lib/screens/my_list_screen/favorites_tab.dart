@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
-import 'package:p1_coronado/widgets/anime_card.dart';
+import 'package:p1_coronado/widgets/anime_grid.dart';
 
 class FavoritesTab extends ConsumerWidget {
   const FavoritesTab({super.key});
@@ -16,23 +16,14 @@ class FavoritesTab extends ConsumerWidget {
         if (favoriteAnimes.isEmpty) {
           return const Center(
             child: Text(
-              "You are not watching any anime yet",
+              "You don't have any favorite anime yet",
               maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 15, color: Colors.grey),
             ),
           );
         }
-        return Scaffold(
-          body: GridView.count(
-            padding: const EdgeInsets.all(5),
-            crossAxisCount: 2,
-            childAspectRatio: 225 / 400, //Sizes of all images + text,
-            children: [
-              for (final id in favoriteAnimes) ...[AnimeCard(animeID: id)],
-            ],
-          ),
-        );
+        return AnimeGrid(animes: favoriteAnimes);
       },
       error: (error, stackTrace) {
         return Center(

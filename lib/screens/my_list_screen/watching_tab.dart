@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
-import 'package:p1_coronado/widgets/anime_card.dart';
+import 'package:p1_coronado/widgets/anime_grid.dart';
 
 class WatchingTab extends ConsumerWidget {
   const WatchingTab({
@@ -27,16 +27,7 @@ class WatchingTab extends ConsumerWidget {
             ),
           );
         }
-        return Scaffold(
-          body: GridView.count(
-            padding: const EdgeInsets.all(5),
-            crossAxisCount: 2,
-            childAspectRatio: 225 / 400, //Sizes of all images + text,
-            children: [
-              for (final id in watchingAnimes) ...[AnimeCard(animeID: id)],
-            ],
-          ),
-        );
+        return AnimeGrid(animes: watchingAnimes);
       },
       error: (error, stackTrace) {
         return Center(
