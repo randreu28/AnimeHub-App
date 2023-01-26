@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
+import 'package:p1_coronado/screens/anime_screen.dart';
 
 class Carousel extends ConsumerWidget {
   final String title;
@@ -54,7 +55,11 @@ class Carousel extends ConsumerWidget {
                   final anime = animes[index];
                   return GestureDetector(
                     onTap: () {
-                      /* TODO: Show specific anime screen */
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AnimeScreen(animeID: anime.id!),
+                        ),
+                      );
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

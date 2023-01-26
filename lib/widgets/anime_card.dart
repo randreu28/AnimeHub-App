@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:p1_coronado/screens/anime_screen.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 
 class AnimeCard extends ConsumerWidget {
@@ -18,7 +19,11 @@ class AnimeCard extends ConsumerWidget {
       data: (anime) {
         return GestureDetector(
           onTap: () {
-            /* Go to tapped anime */
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AnimeScreen(animeID: anime.id!),
+              ),
+            );
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

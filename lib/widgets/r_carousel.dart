@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 
+import '../screens/anime_screen.dart';
+
 class RecommendedCarousel extends ConsumerWidget {
   final String title;
   const RecommendedCarousel({super.key, required this.title});
@@ -96,7 +98,11 @@ class RecommendedCarouselWithId extends ConsumerWidget {
                   final anime = animes[index];
                   return GestureDetector(
                     onTap: () {
-                      /* TODO: Show specific anime screen */
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AnimeScreen(animeID: anime.id!),
+                        ),
+                      );
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
