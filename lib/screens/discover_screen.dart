@@ -46,11 +46,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           child: TextField(
               controller: query,
               onSubmitted: null,
+              textInputAction: TextInputAction.search,
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none),
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
                 hintText: 'Search',
                 prefixIcon: const Icon(
                   Icons.search,
