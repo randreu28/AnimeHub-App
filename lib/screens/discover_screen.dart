@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p1_coronado/screens/genre_picker.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/carousel.dart';
 import 'package:p1_coronado/widgets/r_carousel.dart';
@@ -12,18 +13,33 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   TextEditingController query = TextEditingController();
+  List<int> genres = [];
 
   @override
   Widget build(BuildContext context) {
+    void selectGenre() {
+      Navigator.of(context)
+          .push(
+        MaterialPageRoute(
+          builder: (context) => GenrePicker(genres: genres),
+        ),
+      )
+          .then((newGenres) {
+        if (newGenres != null) {
+          setState(() {
+            genres = newGenres;
+          });
+        }
+      });
+    }
+
     return ListView(
       children: [
         Padding(
           padding: const EdgeInsets.all(20),
           child: TextField(
               controller: query,
-              onSubmitted: (value) {
-                /* TODO: Search anime and display it */
-              },
+              onSubmitted: null,
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
@@ -36,9 +52,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.tune, color: Colors.teal),
-                  onPressed: () {
-                    /* TODO: Search by genre */
-                  },
+                  onPressed: selectGenre,
                 ),
               )),
         ),
