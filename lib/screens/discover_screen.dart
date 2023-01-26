@@ -16,6 +16,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   List<int> genres = [];
 
   @override
+  void dispose() {
+    query.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     void selectGenre() {
       Navigator.of(context)
