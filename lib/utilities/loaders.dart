@@ -8,49 +8,32 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'loaders.g.dart';
 
 @riverpod
-Future<bool> loadIsFavorite(ref, {required int animeID}) async {
-  final db = FirebaseFirestore.instance;
-
-  final docRef = await db
-      .collection("animes")
-      .doc(animeID.toString())
-      .get()
-      .onError((error, stackTrace) => throw Exception(error));
-
-  if (docRef.exists) {
-    final data = docRef.data() as Map<String, dynamic>;
-    return data["isFavorite"];
-  }
-  return false;
-}
-
-@riverpod
-Future<AnimeStatus> loadStatus(ref, {required int animeID}) async {
-  final db = FirebaseFirestore.instance;
-
-  final docRef = await db
-      .collection("animes")
-      .doc(animeID.toString())
-      .get()
-      .onError((error, stackTrace) => throw Exception(error));
-
-  if (docRef.exists) {
-    final data = docRef.data() as Map<String, dynamic>;
-
-    AnimeStatus status = AnimeStatus.values //Converts string to enum
-        .firstWhere((e) => e.toString() == data["status"],
-            orElse: () => AnimeStatus.notWatched);
-
-    return status;
-  }
-  return AnimeStatus.notWatched;
-}
-
-@riverpod
 Future<Anime> parseJsonToAnime(ref,
     {required dynamic json,
     required int animeID,
     required bool hasDbData}) async {
+  bool isFavorite = false;
+  AnimeStatus status = AnimeStatus.notWatched;
+  if (hasDbData) {
+    final db = FirebaseFirestore.instance;
+
+    final docRef = await db
+        .collection("animes")
+        .doc(animeID.toString())
+        .get()
+        .onError((error, stackTrace) => throw Exception(error));
+
+    if (docRef.exists) {
+      final data = docRef.data() as Map<String, dynamic>;
+      isFavorite = data["isFavorite"] as bool;
+      status = AnimeStatus.values //Converts string to enum
+          .firstWhere(
+        (e) => e.toString() == data["status"],
+        orElse: () => AnimeStatus.notWatched,
+      );
+    }
+  }
+
   return Anime(
     id: animeID,
     title: json["titles"][0]["title"],
@@ -65,12 +48,8 @@ Future<Anime> parseJsonToAnime(ref,
     genres: List.generate(
         json["genres"].length, (genre) => json["genres"][genre]["name"]),
     episodes: json["episodes"],
-    isFavorite: hasDbData
-        ? await loadIsFavorite("${animeID}isFAV", animeID: animeID)
-        : false,
-    status: hasDbData
-        ? await loadStatus("${animeID}status", animeID: animeID)
-        : AnimeStatus.notWatched,
+    isFavorite: isFavorite,
+    status: status,
   );
 }
 
