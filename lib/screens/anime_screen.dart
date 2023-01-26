@@ -18,7 +18,86 @@ class AnimeScreen extends ConsumerWidget {
       data: (anime) {
         return Scaffold(
           appBar: AppBar(title: Text(anime.title!)),
-          body: const Center(child: Text("WIP")), /* TODO */
+          body: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      color: Colors.teal,
+                      child: Image.network(anime.image!),
+                    ),
+                  ),
+                  const Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text("Score"),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                          Text(anime.score.toString()),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const SizedBox(height: 5),
+                      const Text("Rank"),
+                      Row(
+                        children: [
+                          const Text("#"),
+                          Text(anime.rank.toString()),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      const Text("Popularity"),
+                      Row(
+                        children: [
+                          const Text("#"),
+                          Text(anime.popularity.toString()),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      const Text("Members"),
+                      Text(anime.members.toString()),
+                      const SizedBox(height: 5),
+                      const Text("Favorites"),
+                      Text(anime.favorites.toString()),
+                    ],
+                  )
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Text(anime.title!,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 24)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                color: Colors.grey.shade900.withOpacity(0.5),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    anime.airingStatus.toString(),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(anime.episodes.toString()),
+                  const Text(" ep"),
+                ]),
+              )
+            ],
+          ), /* TODO */
         );
       },
       error: (error, stackTrace) {
