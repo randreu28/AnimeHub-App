@@ -11,7 +11,7 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  String query = "";
+  TextEditingController query = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         Padding(
           padding: const EdgeInsets.all(20),
           child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  query = value;
-                });
-              },
+              controller: query,
               onSubmitted: (value) {
                 /* TODO: Search anime and display it */
               },
