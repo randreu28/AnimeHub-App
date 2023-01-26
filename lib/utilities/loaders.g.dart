@@ -543,3 +543,13 @@ final loadFavoriteIDsProvider = AutoDisposeFutureProvider<List<int>>(
       : _$loadFavoriteIDsHash,
 );
 typedef LoadFavoriteIDsRef = AutoDisposeFutureProviderRef<List<int>>;
+String _$loadGenresHash() => r'd4618728b8977bc9f89b62da122ddf7cb543cad2';
+
+/// See also [loadGenres].
+final loadGenresProvider = AutoDisposeFutureProvider<Map<String, int>>(
+  loadGenres,
+  name: r'loadGenresProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$loadGenresHash,
+);
+typedef LoadGenresRef = AutoDisposeFutureProviderRef<Map<String, int>>;

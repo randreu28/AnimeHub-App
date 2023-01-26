@@ -272,3 +272,19 @@ Future<List<int>> loadFavoriteIDs(ref) async {
 
   return watchingAnimes.docs.map((doc) => int.parse(doc.id)).toList();
 }
+
+@riverpod
+Future<Map<String, int>> loadGenres(ref) async {
+  final url = Uri.parse("https://api.jikan.moe/v4/genres/anime");
+  final response = await http.get(url);
+  final json = jsonDecode(response.body);
+  final data = json["data"];
+
+  if (response.statusCode != 200) {
+    throw Exception(response.statusCode);
+  }
+
+  return {
+    for (final genre in data) genre["name"] as String: genre["mal_id"],
+  };
+}
