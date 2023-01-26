@@ -229,7 +229,7 @@ final loadUpcomingSeasonsProvider = AutoDisposeFutureProvider<List<Anime>>(
       : _$loadUpcomingSeasonsHash,
 );
 typedef LoadUpcomingSeasonsRef = AutoDisposeFutureProviderRef<List<Anime>>;
-String _$loadAnimeSearchHash() => r'2029005e4a43c14b02f9613e2c03cfd7f3ca0ba6';
+String _$loadAnimeSearchHash() => r'a6cad907aad08eb9d8b4594d5965a17db515b9b3';
 
 /// See also [loadAnimeSearch].
 class LoadAnimeSearchProvider extends AutoDisposeFutureProvider<List<Anime?>> {

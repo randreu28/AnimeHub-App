@@ -150,7 +150,7 @@ Future<List<Anime?>> loadAnimeSearch(ref,
 
   for (final animeData in data) {
     animeSearch.add(await parseJsonToAnime(query,
-        animeID: animeData, json: animeData["mal_id"], hasDbData: false));
+        animeID: animeData["mal_id"], json: animeData, hasDbData: false));
   }
   return animeSearch;
 }
