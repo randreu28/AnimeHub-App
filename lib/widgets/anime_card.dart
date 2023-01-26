@@ -32,65 +32,70 @@ class AnimeCard extends ConsumerWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                child: Stack(children: [
-                  Image.network(
-                    anime.image!,
-                    fit: BoxFit.fill,
-                    height: 270,
-                  ),
-                  SizedBox(
-                    height: 270,
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Card(
-                          color: Colors.black,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(anime.score!.toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.white,
-                                      size: 15,
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(anime.members.toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Icon(
-                                      Icons.people,
-                                      color: Colors.white,
-                                      size: 15,
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(anime.image!),
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
                     ),
-                  )
-                ]),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Stack(children: [
+                    SizedBox(
+                      height: 270,
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Card(
+                            color: Colors.black,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(anime.score!.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white)),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Icon(
+                                        Icons.star,
+                                        color: Colors.white,
+                                        size: 15,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(anime.members.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white)),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Icon(
+                                        Icons.people,
+                                        color: Colors.white,
+                                        size: 15,
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                    )
+                  ]),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
