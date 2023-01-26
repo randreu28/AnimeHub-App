@@ -100,20 +100,26 @@ class AnimeCard extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
-                  children: const [
-                    Text(
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      maxLines: 2,
-                      "Lorem ipsum siamet dolorum epsilon atra esterni onho teldhuim",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                        anime.title!,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      maxLines: 1,
-                      "Lorem ipsum siamet dolorum epsilon atra esterni onho teldhuim",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
+                    const SizedBox(height: 5),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        maxLines: 1,
+                        anime.genres!.join(", "),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                      ),
                     ),
                   ],
                 ),
