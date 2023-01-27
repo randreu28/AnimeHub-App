@@ -10,13 +10,18 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userLoad = ref.watch(loadUserProvider(username: "oddaelita"));
+    final userLoad = ref.watch(loadUserProvider(username: "TheDead117"));
 
     return userLoad.when(
       data: (user) {
         final DateFormat formatter = DateFormat('yyyy-MM-dd');
-        final String fechaCum = formatter.format(user.birthday!);
-        final String fechaJoin = formatter.format(user.joined);
+        String fechaCum = "No date available";
+        String fechaJoin = "No date available";
+
+        if (user.birthday != null && user.joined != null) {
+          fechaCum = formatter.format(user.birthday!);
+          fechaJoin = formatter.format(user.joined!);
+        }
         return Scaffold(
           body: ListView(children: [
             Column(
@@ -27,7 +32,10 @@ class ProfileScreen extends ConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     color: Colors.teal,
                     child: Image.network(
-                      user.image!,
+                      user.image != null
+                          ? user.image!
+                          : 'https://i.postimg.cc/zv414PTR/imagenot.png',
+                      height: user.image != null ? null : 300,
                     ),
                   ),
                 ),
@@ -68,7 +76,9 @@ class ProfileScreen extends ConsumerWidget {
                             width: 10,
                           ),
                           const Text("Location: "),
-                          Text(user.location.toString()),
+                          Text(user.location != null
+                              ? user.location.toString()
+                              : "No location available"),
                           const Spacer(),
                         ],
                       ),
@@ -98,7 +108,9 @@ class ProfileScreen extends ConsumerWidget {
                             width: 10,
                           ),
                           const Text("Gender: "),
-                          Text(user.gender.toString()),
+                          Text(user.gender != null
+                              ? user.gender.toString()
+                              : "No gender available"),
                           const Spacer(),
                         ],
                       ),
