@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:intl/intl.dart';
 import 'package:p1_coronado/widgets/error_state.dart';
@@ -127,7 +128,7 @@ class ProfileScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Spacer(),
-                        CWatching(),
+                        Watching(),
                         Spacer(),
                         Completed(),
                         Spacer(),
@@ -150,121 +151,151 @@ class ProfileScreen extends ConsumerWidget {
   }
 }
 
-class Favorite extends StatelessWidget {
+class Favorite extends ConsumerWidget {
   const Favorite({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Spacer(),
-          Text(
-            "0",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(loadFavAnimesAmountProvider).when(
+      data: (amount) {
+        return SizedBox(
+          height: 100,
+          width: 100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(),
+              Text(
+                amount.toString(),
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Center(
+                child: Text(
+                  "Favorites",
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Icon(
+                Icons.favorite,
+                color: Colors.red,
+                size: 30,
+              ),
+              const Spacer(),
+            ],
           ),
-          Center(
-            child: Text(
-              "Favorites",
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Icon(
-            Icons.favorite,
-            color: Colors.red,
-            size: 30,
-          ),
-          Spacer(),
-        ],
-      ),
+        );
+      },
+      error: (error, stackTrace) {
+        return ErrorState(error: error);
+      },
+      loading: () {
+        return const LoadingState();
+      },
     );
   }
 }
 
-class Completed extends StatelessWidget {
+class Completed extends ConsumerWidget {
   const Completed({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: Column(
-        children: const [
-          Spacer(),
-          Text(
-            "0",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref
+        .watch(loadStatusAnimesAmountProvider(status: AnimeStatus.completed))
+        .when(
+      data: (amount) {
+        return SizedBox(
+          height: 100,
+          width: 100,
+          child: Column(
+            children: [
+              const Spacer(),
+              Text(
+                amount.toString(),
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Center(
+                child: Text(
+                  "Completed",
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Icon(
+                Icons.tv,
+                size: 30,
+              ),
+              const Spacer(),
+            ],
           ),
-          Center(
-            child: Text(
-              "Completed",
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Icon(
-            Icons.tv,
-            size: 30,
-          ),
-          Spacer(),
-        ],
-      ),
+        );
+      },
+      error: (error, stackTrace) {
+        return ErrorState(error: error);
+      },
+      loading: () {
+        return const LoadingState();
+      },
     );
   }
 }
 
-class CWatching extends StatelessWidget {
-  const CWatching({
+class Watching extends ConsumerWidget {
+  const Watching({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: Column(
-        children: const [
-          Spacer(),
-          Text(
-            "0",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Center(
-            child: Text(
-              "Watching",
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Icon(
-            Icons.live_tv,
-            size: 30,
-          ),
-          Spacer(),
-        ],
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref
+        .watch(loadStatusAnimesAmountProvider(status: AnimeStatus.completed))
+        .when(
+          data: (amount) {
+            return SizedBox(
+              height: 100,
+              width: 100,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Text(
+                    amount.toString(),
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Center(
+                    child: Text(
+                      "Watching",
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Icon(
+                    Icons.live_tv,
+                    size: 30,
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            );
+          },
+          error: (error, stackTrace) => ErrorState(error: error),
+          loading: () => const LoadingState(),
+        );
   }
 }
