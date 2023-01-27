@@ -13,6 +13,13 @@ Este proyecto es un punto de partida para una aplicación Flutter.
 
 🚨 Disclaimer! Las credenciales de conexión a la base de datos de Firebase no están incluidas en el repositorio. Para conectarte a nuestra base de dados contacta a ruben.andreu.chiquin@estudiantat.upc.edu
 
+Una vez instalada la aplicación, un usuario de prueba tiene las siguientes credenciales:
+
+```
+username: a@b.com
+password: secret
+```
+
 Algunos recursos para comenzar si este es su primer proyecto de Flutter:
 
 - [Laboratorio: Desarrolla tu primera aplicación Flutter](https://docs.flutter.dev/get-started/codelab)
