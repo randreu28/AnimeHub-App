@@ -14,7 +14,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: ListView(children: [
         Column(
-          children: const [Text("Profile")],
+          children: [
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  padding: const EdgeInsets.all(5.0),
+                  color: Colors.teal,
+                  child: Image.network(
+                    'https://i.pinimg.com/564x/88/d9/fa/88d9faa3959bedd1f0eca6fca1de7c67.jpg',
+                    height: 180,
+                  ),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text(
+                    "oddaelita",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  )
+                ],
+              )
+            ]),
+          ],
         )
       ]),
     );

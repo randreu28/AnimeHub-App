@@ -17,6 +17,19 @@ class AnimeScreen extends ConsumerWidget {
 
     return animeLoader.when(
       data: (anime) {
+        String genre;
+
+        if (anime.genres == null) {
+          genre = "null";
+        }
+
+        if (anime.genres!.length >= 4) {
+          final threeGenres = anime.genres!.take(3).join("  ·  ");
+          genre = "$threeGenres  and more";
+        } else {
+          genre = anime.genres!.join("  ·  ");
+        }
+
         return Scaffold(
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
@@ -57,13 +70,9 @@ class AnimeScreen extends ConsumerWidget {
                         color: Colors.teal,
                         child: Image.network(
                           anime.image != null
-                              ? 'https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg'
-                              : anime.image!,
-                          width: 170,
-                          height: 270,
-                          /* fit: anime.image != null
-                                ? BoxFit.cover
-                                : BoxFit.contain */
+                              ? anime.image!
+                              : 'https://i.postimg.cc/zv414PTR/imagenot.png',
+                          height: anime.image != null ? null : 300,
                         ),
                       ),
                     ),
@@ -104,7 +113,7 @@ class AnimeScreen extends ConsumerWidget {
                               Text(
                                   anime.rank != null
                                       ? anime.rank.toString()
-                                      : "no Rank for this Anime",
+                                      : "N/A",
                                   style: const TextStyle(fontSize: 18)),
                             ],
                           ),
@@ -120,7 +129,7 @@ class AnimeScreen extends ConsumerWidget {
                               Text(
                                   anime.popularity != null
                                       ? anime.popularity.toString()
-                                      : "no Popoularity for this Anime",
+                                      : "N/A",
                                   style: const TextStyle(fontSize: 18)),
                             ],
                           ),
@@ -132,7 +141,7 @@ class AnimeScreen extends ConsumerWidget {
                           Text(
                               anime.members != null
                                   ? anime.members.toString()
-                                  : "no Members for this Anime",
+                                  : "N/A",
                               style: const TextStyle(fontSize: 18)),
                           const SizedBox(height: 10),
                           const Opacity(
@@ -143,7 +152,7 @@ class AnimeScreen extends ConsumerWidget {
                           Text(
                               anime.favorites != null
                                   ? anime.favorites.toString()
-                                  : "no Favorites for this Anime",
+                                  : "N/A",
                               style: const TextStyle(fontSize: 18)),
                         ],
                       ),
@@ -151,8 +160,10 @@ class AnimeScreen extends ConsumerWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 18.0, horizontal: 10.0),
                   child: Text(
+                      textAlign: TextAlign.center,
                       anime.title != null
                           ? anime.title!
                           : "no title for this Anime",
@@ -190,11 +201,12 @@ class AnimeScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        anime.genres?.join("    ·   ") != null
-                            ? anime.genres!.join("    ·   ")
-                            : "no genres for this Anime",
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.teal),
+                        genre,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: anime.genres != null
+                                ? Colors.teal
+                                : Colors.white),
                       )
                     ],
                   ),
@@ -203,7 +215,7 @@ class AnimeScreen extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(anime.synopsis != null
                       ? anime.synopsis!
-                      : "no title for this Anime"),
+                      : "no synopsis for this Anime"),
                 ),
                 const SizedBox(height: 20),
               ],
