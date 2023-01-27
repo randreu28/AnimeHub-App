@@ -191,7 +191,9 @@ Future<User> loadUser(ref, {required String username}) async {
       id: data["mal_id"],
       username: data["username"],
       image: data["images"]["jpg"]["image_url"],
-      lastOnline: DateTime.parse(data["last_online"]),
+      lastOnline: data["last_online"] != null
+          ? DateTime.parse(data["last_online"])
+          : null,
       gender: data["gender"],
       birthday:
           data["birthday"] != null ? DateTime.parse(data["birthday"]) : null,

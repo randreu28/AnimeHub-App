@@ -2,11 +2,11 @@ class User {
   int id;
   String username;
   String? image;
-  DateTime lastOnline;
+  DateTime? lastOnline;
   String? gender;
   DateTime? birthday;
   String? location;
-  DateTime joined;
+  DateTime? joined;
 
   User({
     required this.id,
