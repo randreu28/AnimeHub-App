@@ -261,7 +261,7 @@ class Watching extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref
-        .watch(loadStatusAnimesAmountProvider(status: AnimeStatus.completed))
+        .watch(loadStatusAnimesAmountProvider(status: AnimeStatus.watching))
         .when(
           data: (amount) {
             return SizedBox(
