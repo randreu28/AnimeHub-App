@@ -146,7 +146,7 @@ class AnimeCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                     maxLines: 2,
                     anime.title != null
                         ? anime.title!
