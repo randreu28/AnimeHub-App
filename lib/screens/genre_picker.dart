@@ -21,6 +21,18 @@ class _GenrePickerState extends ConsumerState<GenrePicker> {
         return Scaffold(
             appBar: AppBar(
               title: const Text("Select the genre's"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.genres.clear();
+                      });
+                    },
+                    child: const Text(
+                      "Clear",
+                      style: TextStyle(color: Colors.teal),
+                    ))
+              ],
               leading: GestureDetector(
                 child: const Icon(
                   Icons.arrow_back,
