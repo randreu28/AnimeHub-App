@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/anime_card.dart';
+import 'package:p1_coronado/widgets/search_bar.dart';
 
 class SearchResultScreen extends ConsumerWidget {
   final String query;
@@ -36,14 +37,36 @@ class SearchResultScreen extends ConsumerWidget {
           );
         }
         return Layout(
-          child: GridView.count(
-            padding: const EdgeInsets.all(5),
-            crossAxisCount: 2,
-            childAspectRatio: 225 / 420,
+          child: ListView(
             children: [
-              for (final anime in searchedAnimes) ...[
-                if (anime != null) AnimeCard(anime: anime)
-              ]
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("Results for: "),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      query,
+                      style: const TextStyle(color: Colors.teal),
+                    )
+                  ],
+                ),
+              ),
+              const SearchBar(),
+              GridView.count(
+                padding: const EdgeInsets.all(5),
+                crossAxisCount: 2,
+                childAspectRatio: 225 / 420,
+                shrinkWrap: true,
+                children: [
+                  for (final anime in searchedAnimes) ...[
+                    if (anime != null) AnimeCard(anime: anime)
+                  ]
+                ],
+              ),
             ],
           ),
         );
