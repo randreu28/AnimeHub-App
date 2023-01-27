@@ -257,7 +257,7 @@ class _AnimeScreenState extends ConsumerState<AnimeScreen> {
                       ? anime.synopsis!
                       : "No synopsis for this Anime"),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 75),
               ],
             ),
           ]),
