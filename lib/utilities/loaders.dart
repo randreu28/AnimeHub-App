@@ -193,7 +193,8 @@ Future<User> loadUser(ref, {required String username}) async {
     newGender = data["gender"];
   } else {
     newGender = Gender.values //Converts string to enum
-        .firstWhere((e) => e.toString() == 'Gender.${data["gender"]}');
+        .firstWhere((e) => e.toString() == 'Gender.${data["gender"]}',
+            orElse: () => newGender = Gender.Any);
   }
 
   return User(
