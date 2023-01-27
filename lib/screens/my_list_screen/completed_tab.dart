@@ -4,6 +4,7 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/anime_grid.dart';
+import 'package:p1_coronado/widgets/error_state.dart';
 
 class CompletedTab extends ConsumerWidget {
   const CompletedTab({super.key});
@@ -29,14 +30,7 @@ class CompletedTab extends ConsumerWidget {
         return AnimeGrid(animes: watchedAnimes);
       },
       error: (error, stackTrace) {
-        return Center(
-          child: Text(
-            "An error has occured. Please try again later. ($error)",
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 15, color: Colors.red),
-          ),
-        );
+        return ErrorState(error: error);
       },
       loading: () {
         return const Center(

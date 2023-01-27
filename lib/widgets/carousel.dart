@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/screens/anime_screen.dart';
+import 'package:p1_coronado/widgets/error_state.dart';
 
 class Carousel extends ConsumerWidget {
   final String title;
@@ -91,17 +92,7 @@ class Carousel extends ConsumerWidget {
         );
       },
       error: (error, stackTrace) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              "An error has occured. Please try again later. ($error)",
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 10, color: Colors.red),
-            ),
-          ),
-        );
+        return ErrorState(error: error);
       },
       loading: () {
         return Column(

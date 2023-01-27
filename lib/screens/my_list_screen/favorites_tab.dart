@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/anime_grid.dart';
+import 'package:p1_coronado/widgets/error_state.dart';
 
 class FavoritesTab extends ConsumerWidget {
   const FavoritesTab({super.key});
@@ -26,14 +27,7 @@ class FavoritesTab extends ConsumerWidget {
         return AnimeGrid(animes: favoriteAnimes);
       },
       error: (error, stackTrace) {
-        return Center(
-          child: Text(
-            "An error has occured. Please try again later. ($error)",
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 15, color: Colors.red),
-          ),
-        );
+        return ErrorState(error: error);
       },
       loading: () {
         return const Center(

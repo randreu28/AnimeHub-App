@@ -4,6 +4,7 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/utilities/setters.dart';
+import 'package:p1_coronado/widgets/error_state.dart';
 
 class AnimeScreen extends ConsumerStatefulWidget {
   final int animeID;
@@ -264,17 +265,7 @@ class _AnimeScreenState extends ConsumerState<AnimeScreen> {
       },
       error: (error, stackTrace) {
         return Scaffold(
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                "An error has occured. Please try again later. ($error)",
-                maxLines: 2,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 10, color: Colors.red),
-              ),
-            ),
-          ),
+          body: ErrorState(error: error),
         );
       },
       loading: () {
