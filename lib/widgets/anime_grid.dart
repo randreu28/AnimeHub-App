@@ -13,7 +13,7 @@ class AnimeGrid extends StatelessWidget {
         crossAxisCount: 2,
         childAspectRatio: 225 / 420, //Sizes of all images + text,
         children: [
-          for (final id in animes) ...[AnimeCard(animeID: id)],
+          for (final id in animes) ...[ConsumerAnimeCard(animeID: id)],
         ],
       ),
     );
