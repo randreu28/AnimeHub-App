@@ -187,22 +187,12 @@ Future<User> loadUser(ref, {required String username}) async {
     throw Exception(response.statusCode);
   }
 
-  Gender? newGender;
-
-  if (data["gender"] == null) {
-    newGender = data["gender"];
-  } else {
-    newGender = Gender.values //Converts string to enum
-        .firstWhere((e) => e.toString() == 'Gender.${data["gender"]}',
-            orElse: () => newGender = Gender.Any);
-  }
-
   return User(
       id: data["mal_id"],
       username: data["username"],
       image: data["images"]["jpg"]["image_url"],
       lastOnline: DateTime.parse(data["last_online"]),
-      gender: newGender,
+      gender: data["gender"],
       birthday:
           data["birthday"] != null ? DateTime.parse(data["birthday"]) : null,
       location: data["location"],

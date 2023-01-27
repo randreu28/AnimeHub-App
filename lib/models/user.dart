@@ -1,12 +1,9 @@
-// ignore: constant_identifier_names
-enum Gender { Any, Male, Female, Ninbinary }
-
 class User {
   int id;
   String username;
   String? image;
   DateTime lastOnline;
-  Gender? gender;
+  String? gender;
   DateTime? birthday;
   String? location;
   DateTime joined;

@@ -320,7 +320,7 @@ final loadRandomCompletedAnimeProvider = AutoDisposeFutureProvider<int>(
       : _$loadRandomCompletedAnimeHash,
 );
 typedef LoadRandomCompletedAnimeRef = AutoDisposeFutureProviderRef<int>;
-String _$loadUserHash() => r'caba9226cd92604772da8dca4c6bd96a024d3280';
+String _$loadUserHash() => r'75f9b3cec5f2fd33b40e237ba46d11f00d0604be';
 
 /// See also [loadUser].
 class LoadUserProvider extends AutoDisposeFutureProvider<User> {
