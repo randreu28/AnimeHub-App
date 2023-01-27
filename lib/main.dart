@@ -67,7 +67,14 @@ class _NavBarState extends State<NavBar> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('My anime list'),
+          title: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Image.network(
+              "https://i.postimg.cc/NMDM0fft/AnimeHUB.png",
+              height: 50,
+            ),
+          ),
+          centerTitle: true,
           bottom: _selectedIndex == 2
               ? const TabBar(
                   tabs: [
