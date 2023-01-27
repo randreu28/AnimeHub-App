@@ -19,7 +19,7 @@ class AnimeScreen extends ConsumerWidget {
         String genre;
 
         if (anime.genres == null) {
-          genre = "null";
+          genre = "This anime has no genre's";
         }
 
         if (anime.genres!.length >= 4) {
@@ -54,7 +54,7 @@ class AnimeScreen extends ConsumerWidget {
               )
             ],
             title: Text(
-                anime.title != null ? anime.title! : "no title for this Anime"),
+                anime.title != null ? anime.title! : "No title for this Anime"),
           ),
           body: ListView(children: [
             Column(
@@ -165,7 +165,7 @@ class AnimeScreen extends ConsumerWidget {
                       textAlign: TextAlign.center,
                       anime.title != null
                           ? anime.title!
-                          : "no title for this Anime",
+                          : "No title for this Anime",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 24)),
                 ),
@@ -186,7 +186,7 @@ class AnimeScreen extends ConsumerWidget {
                         Text(
                             anime.episodes != null
                                 ? anime.episodes.toString()
-                                : "no",
+                                : "No",
                             style: const TextStyle(fontSize: 16)),
                         const Text(
                           " eps",
@@ -214,12 +214,12 @@ class AnimeScreen extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(anime.synopsis != null
                       ? anime.synopsis!
-                      : "no synopsis for this Anime"),
+                      : "No synopsis for this Anime"),
                 ),
                 const SizedBox(height: 20),
               ],
             ),
-          ]), /* TODO */
+          ]),
         );
       },
       error: (error, stackTrace) {
