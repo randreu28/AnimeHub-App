@@ -281,3 +281,35 @@ Future<Map<String, int>> loadGenres(ref) async {
     for (final genre in data) genre["name"] as String: genre["mal_id"],
   };
 }
+
+@riverpod
+Future<int> loadStatusAnimesAmount(ref, {required AnimeStatus status}) async {
+  final db = FirebaseFirestore.instance;
+
+  return await db
+      .collection("animes")
+      .where(
+        "status",
+        isEqualTo: status.toString(),
+      )
+      .count()
+      .get()
+      .then((value) => value.count)
+      .onError((error, stackTrace) => throw Exception(error));
+}
+
+@riverpod
+Future<int> loadFavAnimesAmount(ref) async {
+  final db = FirebaseFirestore.instance;
+
+  return await db
+      .collection("animes")
+      .where(
+        "isFavorite",
+        isEqualTo: true,
+      )
+      .count()
+      .get()
+      .then((value) => value.count)
+      .onError((error, stackTrace) => throw Exception(error));
+}

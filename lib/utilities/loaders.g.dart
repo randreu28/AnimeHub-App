@@ -320,7 +320,7 @@ final loadRandomCompletedAnimeProvider = AutoDisposeFutureProvider<int>(
       : _$loadRandomCompletedAnimeHash,
 );
 typedef LoadRandomCompletedAnimeRef = AutoDisposeFutureProviderRef<int>;
-String _$loadUserHash() => r'75f9b3cec5f2fd33b40e237ba46d11f00d0604be';
+String _$loadUserHash() => r'846bca22a68ffc7a8b133da6dc2c601f7c6f8ce4';
 
 /// See also [loadUser].
 class LoadUserProvider extends AutoDisposeFutureProvider<User> {
@@ -553,3 +553,86 @@ final loadGenresProvider = AutoDisposeFutureProvider<Map<String, int>>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$loadGenresHash,
 );
 typedef LoadGenresRef = AutoDisposeFutureProviderRef<Map<String, int>>;
+String _$loadStatusAnimesAmountHash() =>
+    r'b50023c9fafe664296598cb830696f97ff4fb5b0';
+
+/// See also [loadStatusAnimesAmount].
+class LoadStatusAnimesAmountProvider extends AutoDisposeFutureProvider<int> {
+  LoadStatusAnimesAmountProvider({
+    required this.status,
+  }) : super(
+          (ref) => loadStatusAnimesAmount(
+            ref,
+            status: status,
+          ),
+          from: loadStatusAnimesAmountProvider,
+          name: r'loadStatusAnimesAmountProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$loadStatusAnimesAmountHash,
+        );
+
+  final AnimeStatus status;
+
+  @override
+  bool operator ==(Object other) {
+    return other is LoadStatusAnimesAmountProvider && other.status == status;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef LoadStatusAnimesAmountRef = AutoDisposeFutureProviderRef<int>;
+
+/// See also [loadStatusAnimesAmount].
+final loadStatusAnimesAmountProvider = LoadStatusAnimesAmountFamily();
+
+class LoadStatusAnimesAmountFamily extends Family<AsyncValue<int>> {
+  LoadStatusAnimesAmountFamily();
+
+  LoadStatusAnimesAmountProvider call({
+    required AnimeStatus status,
+  }) {
+    return LoadStatusAnimesAmountProvider(
+      status: status,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<int> getProviderOverride(
+    covariant LoadStatusAnimesAmountProvider provider,
+  ) {
+    return call(
+      status: provider.status,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'loadStatusAnimesAmountProvider';
+}
+
+String _$loadFavAnimesAmountHash() =>
+    r'aa33d3dd03b3593c5ea39bad3b2e37bda399e142';
+
+/// See also [loadFavAnimesAmount].
+final loadFavAnimesAmountProvider = AutoDisposeFutureProvider<int>(
+  loadFavAnimesAmount,
+  name: r'loadFavAnimesAmountProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadFavAnimesAmountHash,
+);
+typedef LoadFavAnimesAmountRef = AutoDisposeFutureProviderRef<int>;
