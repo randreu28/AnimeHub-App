@@ -82,7 +82,7 @@ class Carousel extends ConsumerWidget {
                     ),
                   );
                 },
-                itemCount: 20,
+                itemCount: animes.length,
                 separatorBuilder: (BuildContext context, int index) {
                   return const Divider(height: 1, indent: 5);
                 },
