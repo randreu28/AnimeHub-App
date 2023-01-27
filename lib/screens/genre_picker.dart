@@ -43,7 +43,6 @@ class _GenrePickerState extends ConsumerState<GenrePicker> {
                         } else {
                           widget.genres.remove(allGenres[genre]!);
                         }
-                        print(widget.genres);
                       });
                     },
                   )

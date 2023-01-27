@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/anime_card.dart';
-import 'package:p1_coronado/widgets/search_bar.dart';
 
 class SearchResultScreen extends ConsumerWidget {
   final String query;
