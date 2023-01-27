@@ -55,6 +55,7 @@ class _SearchBarState extends State<SearchBar> {
           onSubmitted: search,
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(
+            helperText: "${genresID.length} genre's selected",
             filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
