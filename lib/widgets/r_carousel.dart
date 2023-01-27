@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/error_state.dart';
+import 'package:p1_coronado/widgets/loading_state.dart';
 
 import '../screens/anime_screen.dart';
 
@@ -52,9 +52,7 @@ class RecommendedCarousel extends ConsumerWidget {
                 Text(title, style: const TextStyle(fontSize: 16)),
               ],
             ),
-            const SizedBox(
-                height: 200.0,
-                child: LoadingIndicator(size: 20, borderWidth: 1)),
+            const LoadingState()
           ],
         );
       },
@@ -133,18 +131,7 @@ class RecommendedCarouselWithId extends ConsumerWidget {
                 Text(title, style: const TextStyle(fontSize: 16)),
               ],
             ),
-            SizedBox(
-              height: 200.0,
-              width: 300,
-              child: Center(
-                child: Text(
-                  "An error occured. Please try again later ($error)",
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 12, color: Colors.red),
-                ),
-              ),
-            )
+            ErrorState(error: error)
           ],
         );
       },
@@ -157,9 +144,7 @@ class RecommendedCarouselWithId extends ConsumerWidget {
                 Text(title, style: const TextStyle(fontSize: 16)),
               ],
             ),
-            const SizedBox(
-                height: 200.0,
-                child: LoadingIndicator(size: 20, borderWidth: 1)),
+            const LoadingState()
           ],
         );
       },

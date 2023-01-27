@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 import 'package:p1_coronado/widgets/anime_grid.dart';
 import 'package:p1_coronado/widgets/error_state.dart';
+import 'package:p1_coronado/widgets/loading_state.dart';
 
 class CompletedTab extends ConsumerWidget {
   const CompletedTab({super.key});
@@ -33,10 +33,7 @@ class CompletedTab extends ConsumerWidget {
         return ErrorState(error: error);
       },
       loading: () {
-        return const Center(
-          child: SizedBox(
-              height: 200.0, child: LoadingIndicator(size: 20, borderWidth: 1)),
-        );
+        return const LoadingState();
       },
     );
   }
