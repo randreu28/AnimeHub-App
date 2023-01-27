@@ -11,7 +11,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userLoad = ref.watch(loadUserProvider(username: "TheDead117"));
+    final userLoad = ref.watch(loadUserProvider(username: "oddaelita"));
 
     return userLoad.when(
       data: (user) {
