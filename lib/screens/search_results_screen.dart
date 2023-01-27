@@ -57,6 +57,7 @@ class SearchResultScreen extends ConsumerWidget {
               ),
               const SearchBar(),
               GridView.count(
+                physics: const ScrollPhysics(),
                 padding: const EdgeInsets.all(5),
                 crossAxisCount: 2,
                 childAspectRatio: 225 / 420,

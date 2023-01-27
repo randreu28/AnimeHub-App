@@ -9,6 +9,7 @@ class AnimeGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.count(
+        physics: const ScrollPhysics(),
         padding: const EdgeInsets.all(5),
         crossAxisCount: 2,
         childAspectRatio: 225 / 420, //Sizes of all images + text,
