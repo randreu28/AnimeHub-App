@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
+import 'package:p1_coronado/utilities/setters.dart';
 
-class AnimeScreen extends ConsumerWidget {
+class AnimeScreen extends ConsumerStatefulWidget {
   final int animeID;
   const AnimeScreen({super.key, required this.animeID});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AnimeScreen> createState() => _AnimeScreenState();
+}
+
+class _AnimeScreenState extends ConsumerState<AnimeScreen> {
+  @override
+  Widget build(BuildContext context) {
     final animeLoader = ref.watch(loadAnimeProvider(
-      animeID: animeID,
+      animeID: widget.animeID,
       hasDbData: true,
     ));
 
@@ -29,27 +36,60 @@ class AnimeScreen extends ConsumerWidget {
           genre = anime.genres!.join("  ·  ");
         }
 
+        Widget statusIcon;
+        String statusLabel;
+        AnimeStatus newStatus;
+
+        switch (anime.status) {
+          case AnimeStatus.completed:
+            statusIcon = const Icon(Icons.tv_outlined);
+            statusLabel = "Completed";
+            newStatus = AnimeStatus.notWatched;
+            break;
+          case AnimeStatus.notWatched:
+            statusIcon = const Icon(Icons.tv_off_rounded);
+            statusLabel = "Not watched";
+            newStatus = AnimeStatus.watching;
+            break;
+          case AnimeStatus.watching:
+            statusIcon = const Icon(Icons.live_tv);
+            statusLabel = "Watching";
+            newStatus = AnimeStatus.completed;
+            break;
+        }
+
         return Scaffold(
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              // TODO: Cambiar de estado entre Watching, Completed, Not Watch
+              try {
+                setStatus(animeId: anime.id!, status: newStatus);
+              } finally {
+                setState(() {
+                  anime.status = newStatus;
+                });
+              }
             },
-            label: const Text("NOT WATCHED"),
-            icon: //const Icon(Icons.live_tv),
-                const Icon(Icons.tv_off_rounded),
-            //const Icon(Icons.tv_outlined),
+            label: Text(statusLabel),
+            icon: statusIcon,
             backgroundColor: Colors.teal,
           ),
           appBar: AppBar(
             actions: <Widget>[
               IconButton(
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.white,
+                icon: Icon(
+                  anime.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.red,
                   size: 35,
                 ),
                 onPressed: () {
-                  //TODO funcionality
+                  try {
+                    setIsFavorite(
+                        animeId: anime.id!, isFavorite: !anime.isFavorite);
+                  } finally {
+                    setState(() {
+                      anime.isFavorite = !anime.isFavorite;
+                    });
+                  }
                 },
               )
             ],
