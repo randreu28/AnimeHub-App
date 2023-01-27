@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:p1_coronado/models/anime.dart';
 import 'package:p1_coronado/utilities/loaders.dart';
 
 class AnimeScreen extends ConsumerWidget {
@@ -17,19 +18,32 @@ class AnimeScreen extends ConsumerWidget {
     return animeLoader.when(
       data: (anime) {
         return Scaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              // TODO: Cambiar de estado entre Watching, Completed, Not Watch
+            },
+            label: const Text("NOT WATCHED"),
+            icon: //const Icon(Icons.live_tv),
+                const Icon(Icons.tv_off_rounded),
+            //const Icon(Icons.tv_outlined),
+            backgroundColor: Colors.teal,
+          ),
           appBar: AppBar(
-              title: Row(
-            children: [
-              Text(anime.title!),
-              const Spacer(),
-              Image.network(
-                'https://scontent-mad1-2.xx.fbcdn.net/v/t39.30808-6/326580897_525254782918807_8636374389209684298_n.png?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cbl8gn7bAfYAX9CjjQt&_nc_ht=scontent-mad1-2.xx&oh=00_AfBBK6gaevkPMYg0Y11-Q1V-EDkRDtVK4R7laduV9uVgHg&oe=63D7204B',
-                height: 30,
-              ),
-              const Spacer(),
-              const Icon(Icons.favorite)
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                  size: 35,
+                ),
+                onPressed: () {
+                  //TODO funcionality
+                },
+              )
             ],
-          )),
+            title: Text(
+                anime.title != null ? anime.title! : "no title for this Anime"),
+          ),
           body: ListView(children: [
             Column(
               children: [
@@ -41,7 +55,16 @@ class AnimeScreen extends ConsumerWidget {
                       child: Container(
                         padding: const EdgeInsets.all(10.0),
                         color: Colors.teal,
-                        child: Image.network(anime.image!),
+                        child: Image.network(
+                          anime.image != null
+                              ? 'https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg'
+                              : anime.image!,
+                          width: 170,
+                          height: 270,
+                          /* fit: anime.image != null
+                                ? BoxFit.cover
+                                : BoxFit.contain */
+                        ),
                       ),
                     ),
                     const Spacer(),
@@ -50,64 +73,91 @@ class AnimeScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Text("Score"),
+                          const Text("Score", style: TextStyle(fontSize: 16)),
                           Row(
                             children: [
                               const Icon(
                                 Icons.star,
                                 color: Colors.white,
-                                size: 15,
+                                size: 22,
                               ),
-                              Text(anime.score.toString()),
+                              Text(
+                                anime.score != null
+                                    ? anime.score.toString()
+                                    : "N/A",
+                                style: const TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
                             ],
                           ),
                           const SizedBox(
-                            width: 5,
+                            height: 10,
                           ),
-                          const SizedBox(height: 5),
-                          const Text("Rank"),
+                          const SizedBox(height: 10),
+                          const Opacity(
+                              opacity: 0.8,
+                              child:
+                                  Text("Rank", style: TextStyle(fontSize: 16))),
                           Row(
                             children: [
-                              const Text("#"),
-                              Text(anime.rank.toString()),
+                              const Text("#", style: TextStyle(fontSize: 20)),
+                              Text(
+                                  anime.rank != null
+                                      ? anime.rank.toString()
+                                      : "no Rank for this Anime",
+                                  style: const TextStyle(fontSize: 18)),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          const Text("Popularity"),
+                          const SizedBox(height: 10),
+                          const Opacity(
+                            opacity: 0.8,
+                            child: Text("Popularity",
+                                style: TextStyle(fontSize: 16)),
+                          ),
                           Row(
                             children: [
-                              const Text("#"),
-                              Text(anime.popularity.toString()),
+                              const Text("#", style: TextStyle(fontSize: 16)),
+                              Text(
+                                  anime.popularity != null
+                                      ? anime.popularity.toString()
+                                      : "no Popoularity for this Anime",
+                                  style: const TextStyle(fontSize: 18)),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          const Text("Members"),
-                          Text(anime.members.toString()),
-                          const SizedBox(height: 5),
-                          const Text("Favorites"),
-                          Text(anime.favorites.toString()),
+                          const SizedBox(height: 10),
+                          const Opacity(
+                              opacity: 0.8,
+                              child: Text("Members",
+                                  style: TextStyle(fontSize: 16))),
+                          Text(
+                              anime.members != null
+                                  ? anime.members.toString()
+                                  : "no Members for this Anime",
+                              style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 10),
+                          const Opacity(
+                            opacity: 0.8,
+                            child: Text("Favorites",
+                                style: TextStyle(fontSize: 16)),
+                          ),
+                          Text(
+                              anime.favorites != null
+                                  ? anime.favorites.toString()
+                                  : "no Favorites for this Anime",
+                              style: const TextStyle(fontSize: 18)),
                         ],
                       ),
                     )
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(anime.title!,
+                  padding: const EdgeInsets.symmetric(vertical: 18.0),
+                  child: Text(
+                      anime.title != null
+                          ? anime.title!
+                          : "no title for this Anime",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 24)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.teal,
-                        borderRadius: BorderRadius.circular(3)),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("Watching // TO DO"),
-                    ),
-                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -116,22 +166,33 @@ class AnimeScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          anime.airingStatus.toString(),
-                        ),
+                            anime.airingStatus != null
+                                ? anime.airingStatus.toString()
+                                : "no AiringStatus for this Anime",
+                            style: const TextStyle(fontSize: 16)),
                         const SizedBox(
                           width: 20,
                         ),
-                        Text(anime.episodes.toString()),
-                        const Text(" ep"),
+                        Text(
+                            anime.episodes != null
+                                ? anime.episodes.toString()
+                                : "no",
+                            style: const TextStyle(fontSize: 16)),
+                        const Text(
+                          " eps",
+                          style: TextStyle(fontSize: 16),
+                        ),
                       ]),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        anime.genres!.join("    ·   "),
+                        anime.genres?.join("    ·   ") != null
+                            ? anime.genres!.join("    ·   ")
+                            : "no genres for this Anime",
                         style:
                             const TextStyle(fontSize: 16, color: Colors.teal),
                       )
@@ -139,9 +200,12 @@ class AnimeScreen extends ConsumerWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(anime.synopsis!),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(anime.synopsis != null
+                      ? anime.synopsis!
+                      : "no title for this Anime"),
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ]), /* TODO */
