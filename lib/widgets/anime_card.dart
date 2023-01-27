@@ -67,7 +67,11 @@ class AnimeCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(anime.image!),
+                  image: NetworkImage(
+                    anime.image != null
+                        ? anime.image!
+                        : 'https://i.postimg.cc/zv414PTR/imagenot.png',
+                  ),
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
                 ),
@@ -89,7 +93,10 @@ class AnimeCard extends StatelessWidget {
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(anime.score!.toString(),
+                                  Text(
+                                      anime.score != null
+                                          ? anime.score.toString()
+                                          : "N/A",
                                       style:
                                           const TextStyle(color: Colors.white)),
                                   const SizedBox(
@@ -108,7 +115,10 @@ class AnimeCard extends StatelessWidget {
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(anime.members.toString(),
+                                  Text(
+                                      anime.members != null
+                                          ? anime.members.toString()
+                                          : "N/A",
                                       style:
                                           const TextStyle(color: Colors.white)),
                                   const SizedBox(
@@ -132,20 +142,30 @@ class AnimeCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
-              children: const [
-                Text(
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  maxLines: 2,
-                  "Lorem ipsum siamet dolorum epsilon atra esterni onho teldhuim",
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.left,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    anime.title != null
+                        ? anime.title!
+                        : "No title for this Anime",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  maxLines: 1,
-                  "Lorem ipsum siamet dolorum epsilon atra esterni onho teldhuim",
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.left,
+                const SizedBox(height: 5),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    maxLines: 1,
+                    anime.genres?.join != null
+                        ? anime.genres!.join(", ")
+                        : "No genres for this Anime",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ],
             ),
