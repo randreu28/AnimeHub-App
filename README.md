@@ -1,5 +1,9 @@
 # Proyecto final:  Bloque de Especialitzación en Tecnologías Multimedia Aplicadas (BETMA) VII
 
+
+![Screenshot](./screenshots/full.jpg "Full")
+
+
 Esta App consiste en un proyecto final universitario de la clase de BETMAVII. Consiste en una pequeña aplicación fullstack con la ayuda de:
 
 - [Jikan API](https://jikan.moe/), una REST API de anime y manga
